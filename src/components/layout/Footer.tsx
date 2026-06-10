@@ -61,7 +61,7 @@ export function Footer() {
               between individual users on the platform.
             </p>
             <p className="text-xs text-yami-muted shrink-0">
-              © 2025 Yami Finance Ltd.
+              © 2026 Yami Finance Ltd.
             </p>
           </div>
         </div>

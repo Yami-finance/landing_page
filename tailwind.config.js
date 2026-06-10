@@ -17,7 +17,8 @@ module.exports = {
         },
       },
       fontFamily: {
-        space: ["var(--font-space-grotesk)", "system-ui", "sans-serif"],
+        sans: ["var(--font-urbanist)", "system-ui", "sans-serif"],
+        sine: ["Sine", "sans-serif"],
       },
     },
   },

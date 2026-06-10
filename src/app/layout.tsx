@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
-import { Space_Grotesk } from "next/font/google";
+import { Urbanist } from "next/font/google";
 import "./globals.css";
 
-const spaceGrotesk = Space_Grotesk({
+const urbanist = Urbanist({
   subsets: ["latin"],
-  variable: "--font-space-grotesk",
+  variable: "--font-urbanist",
   display: "swap",
 });
 
@@ -20,8 +20,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={spaceGrotesk.variable}>
-      <body className="font-space overflow-x-hidden">{children}</body>
+    <html lang="en" className={urbanist.variable}>
+      <body className="font-sans overflow-x-hidden">{children}</body>
     </html>
   );
 }

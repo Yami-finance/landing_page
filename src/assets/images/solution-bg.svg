@@ -1,0 +1,17 @@
+<svg width="1440" height="900" viewBox="0 0 1440 900" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+  <rect width="1440" height="900" fill="#060F14"/>
+  <rect width="1440" height="900" fill="url(#solution-linear)"/>
+  <rect width="1440" height="900" fill="url(#solution-radial)"/>
+  <defs>
+    <linearGradient id="solution-linear" x1="720" y1="0" x2="720" y2="900" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#0E2229"/>
+      <stop offset="0.35" stop-color="#09161C"/>
+      <stop offset="1" stop-color="#060F14"/>
+    </linearGradient>
+    <radialGradient id="solution-radial" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(720 80) rotate(90) scale(520 900)">
+      <stop stop-color="#2A4D42" stop-opacity="0.45"/>
+      <stop offset="0.55" stop-color="#142820" stop-opacity="0.15"/>
+      <stop offset="1" stop-color="#060F14" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+</svg>

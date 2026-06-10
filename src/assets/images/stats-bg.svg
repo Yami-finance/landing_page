@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="800" viewBox="0 0 1440 800" fill="none" preserveAspectRatio="xMidYMid slice">
+  <rect width="1440" height="800" fill="#060F14"/>
+  <defs>
+    <radialGradient id="statsGlow" cx="50%" cy="40%" r="60%" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#143028" stop-opacity="0.55"/>
+      <stop offset="50%" stop-color="#0A181E" stop-opacity="0.25"/>
+      <stop offset="100%" stop-color="#060F14" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="statsVertical" x1="720" y1="0" x2="720" y2="800" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#0D1F23"/>
+      <stop offset="45%" stop-color="#081418"/>
+      <stop offset="100%" stop-color="#060F14"/>
+    </linearGradient>
+  </defs>
+  <rect width="1440" height="800" fill="url(#statsVertical)"/>
+  <rect width="1440" height="800" fill="url(#statsGlow)"/>
+</svg>
