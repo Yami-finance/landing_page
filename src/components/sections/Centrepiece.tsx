@@ -14,7 +14,7 @@ export function Centrepiece() {
   return (
     <section id="trust-score" className="scroll-mt-20 border-t border-ink">
       <div className="mx-auto max-w-6xl px-5 py-20 lg:px-8 lg:py-28">
-        <SectionHead folio="03 — The Centrepiece">
+        <SectionHead folio="03 · The Centrepiece">
           A number that means you keep your word.
         </SectionHead>
 

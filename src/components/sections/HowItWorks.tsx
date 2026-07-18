@@ -14,7 +14,7 @@ export function HowItWorks() {
   return (
     <section id="how-it-works" className="scroll-mt-20 border-t border-ink">
       <div className="mx-auto max-w-6xl px-5 py-20 lg:px-8 lg:py-28">
-        <SectionHead folio="04 — How it works">
+        <SectionHead folio="04 · How it works">
           Simple. Structured. Secure.
         </SectionHead>
 

@@ -8,7 +8,7 @@ export function FaqSection() {
   return (
     <section id="faq" className="scroll-mt-20 border-t border-ink">
       <div className="mx-auto max-w-6xl px-5 py-20 lg:px-8 lg:py-28">
-        <SectionHead folio="07 — FAQ">Questions, answered.</SectionHead>
+        <SectionHead folio="07 · FAQ">Questions, answered.</SectionHead>
 
         <Reveal className="mt-12 border-t border-ink">
           {faqs.map((f, i) => (

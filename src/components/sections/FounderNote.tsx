@@ -23,7 +23,7 @@ export function FounderNote() {
       <div className="mx-auto max-w-6xl px-5 py-20 lg:px-8 lg:py-28">
         <Reveal className="section-head">
           <p className="folio pt-2 text-forest-muted">
-            06 — Why we&apos;re building this
+            06 · Why we&apos;re building this
           </p>
           <div className="max-w-2xl space-y-6 text-[19px] leading-relaxed text-forest-text">
             {founderNote.paras.map((para, i) =>

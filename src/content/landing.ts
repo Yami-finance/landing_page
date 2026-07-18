@@ -1,26 +1,26 @@
-// §13 — approved copy, verbatim source of truth. Centralized so it's reusable
-// across routes and greppable for the §1.1 Honesty Rule check. Nothing in here
-// is a fabricated traction metric; the only numbers are literally true.
+// Approved copy — source of truth. No fabricated traction (§1.1); no mention of
+// the backend, staging, or internal readiness anywhere. Launch status is "Soon"
+// with a wink. Written to read like a person, not a pitch deck.
 
 export const heroLead =
-  "Young Nigerians already lend to each other every day — through DMs, transfers, and trust. Yami gives that lending what it's always lacked: structured agreements, repayment history, and a trust score that opens doors.";
+  "You already lend to friends and borrow from them. It happens over WhatsApp, in bank transfers, on trust. Yami makes it real: verified people, a clear agreement, and a trust score that grows every time you keep your word.";
 
 export const heroMeta = [
   { k: "You lend. You borrow.", v: "Between real people" },
-  { k: "Not a loan app", v: "We never touch the money" },
-  { k: "First cohort", v: "Campus communities" },
+  { k: "Not a loan app", v: "We never touch your money" },
+  { k: "First cohort", v: "Communities, soon" },
 ];
 
 export const ledgerStrip = [
   {
-    date: "— · —",
+    date: "···",
     entry: "The lending your people already do",
     amount: "₦ every day",
     status: "Unrecorded",
     stamp: false,
   },
   {
-    date: "— · —",
+    date: "···",
     entry: "What Yami makes of it",
     amount: "On record",
     status: "Trust ↑",
@@ -33,49 +33,49 @@ export const problems = [
     label: "Missing",
     title: "Trust data",
     detail:
-      "Risk is invisible. You have no way of knowing who's reliable before you lend.",
+      "You can't see who's reliable. So every loan is a guess, and every guess is a risk.",
   },
   {
     label: "Missing",
     title: "Documentation",
     detail:
-      "Agreements live in chat threads. Nothing formal. Nothing enforceable.",
+      "The agreement lives in a chat thread. It isn't formal, and it isn't something you can hold anyone to.",
   },
   {
     label: "Missing",
     title: "A payment trail",
     detail:
-      "Money moves with no record. When disputes come, there's nothing to point to.",
+      "Money moves and leaves no trace. When something goes wrong, it's your word against theirs.",
   },
   {
     label: "Missing",
     title: "Consequences",
     detail:
-      "Bad actors face zero accountability. They simply move on to the next lender.",
+      "Nobody's accountable. The person who doesn't pay just moves on to the next friend.",
   },
 ];
 
 export const solutionLead =
-  "We don't lend money, hold deposits, or set your rates. We provide the trust infrastructure that makes lending between people actually work.";
+  "We don't lend money, hold your cash, or set your rates. We give the lending you already do the things it's missing: proof of who you're dealing with, an agreement that holds, and a reputation you build as you go.";
 
 export const pillars = [
   {
     label: "a.",
     title: "Trust Score",
     detail:
-      "A reputation built from real behaviour — every repayment, every agreement, every kept promise shapes your score.",
+      "A reputation built from what you actually do. Every repayment and every agreement you keep makes it stronger.",
   },
   {
     label: "b.",
     title: "Structured agreements",
     detail:
-      "Every loan is documented, enforceable, and signed. No more 'I thought we agreed on…'",
+      "Every loan is written down, agreed by both sides, and signed. No more 'I thought we said something else.'",
   },
   {
     label: "c.",
     title: "Verified people",
     detail:
-      "Borrow from and lend to real, verified people — starting inside communities where reputation already matters.",
+      "You know exactly who you're dealing with. Real, verified people, starting inside communities where your name already means something.",
   },
 ];
 
@@ -88,42 +88,42 @@ export const factors = [
   {
     label: "ii.",
     title: "Repayment speed",
-    detail: "Did you pay on time — or early?",
+    detail: "Did you pay on time, or early?",
   },
   {
     label: "iii.",
     title: "Agreement completion",
-    detail: "Do you finish what you sign?",
+    detail: "Do you finish what you start?",
   },
 ];
 
 export const portability =
-  "Your score is portable. It starts on Yami and grows into a financial identity that's yours — for bigger loans, better terms, and doors that were closed before.";
+  "Your score is yours to keep. It starts on Yami and grows into a real financial reputation, the kind that earns you bigger loans, better terms, and a yes where you used to get a no.";
 
 export const borrowSteps = [
   {
     title: "Verify your identity",
     detail:
-      "BVN and photo ID — verified once through a licensed provider, trusted everywhere on Yami.",
+      "BVN and a photo ID, checked once through a licensed partner. Do it once and you're trusted everywhere on Yami.",
   },
   {
     title: "Create a request",
     detail:
-      "Describe what you need in plain language. Yami structures it into a formal request with clear terms.",
+      "Say what you need in plain words. Yami turns it into a clear request with real terms.",
   },
   {
     title: "Receive offers",
     detail:
-      "See offers from verified lenders — their trust score, rates, and terms, all transparent.",
+      "Verified lenders make you offers. You see their trust score, their rate, and their terms before you decide.",
   },
   {
     title: "Sign the agreement",
-    detail: "Signed and documented for good. Both parties protected.",
+    detail: "Both of you sign. It's documented for good, and it protects you both.",
   },
   {
     title: "Repay on time",
     detail:
-      "Every on-time repayment builds your trust score. Your reputation grows with you.",
+      "Every repayment on time lifts your score. Your reputation grows with you.",
   },
 ];
 
@@ -131,101 +131,99 @@ export const lendSteps = [
   {
     title: "Verify your identity",
     detail:
-      "Same bar for everyone. Lenders are verified people, not anonymous accounts.",
+      "Everyone clears the same bar. The people you lend to are verified, not anonymous.",
   },
   {
     title: "Browse requests",
     detail:
-      "See verified borrowers — trust score, purpose, amount, and timeline upfront.",
+      "See real borrowers with their trust score, what they need, and when they'll pay it back.",
   },
   {
     title: "Make an offer",
-    detail:
-      "Set your terms. Negotiate transparently until both sides agree.",
+    detail: "Set your own terms and agree them out in the open.",
   },
   {
     title: "Sign the agreement",
-    detail: "Every naira you lend is documented and enforceable.",
+    detail: "Every naira you lend is written down and enforceable.",
   },
   {
     title: "Get repaid",
     detail:
-      "Track repayments in real time. Your lending history builds your reputation too.",
+      "Track it in real time. Every loan you see through builds your reputation too.",
   },
 ];
 
 export const statusEntries = [
   {
     id: "001",
-    title: "The platform is built",
+    title: "Yami is real",
     detail:
-      "The full lending engine — matching, agreements, wallets, identity verification, and the trust score — is complete and running on staging, backed by 500+ automated tests.",
+      "Built by Arcturian Limited and registered in Nigeria. Not a concept, not a maybe. A real company building this properly.",
     stamp: "done" as const,
     stampLabel: "Done",
   },
   {
     id: "002",
-    title: "Company registered",
+    title: "The waitlist is open",
     detail:
-      "Yami is built by Arcturian Limited, registered in Nigeria, with the legal and compliance groundwork for a lending marketplace in place.",
-    stamp: "done" as const,
-    stampLabel: "Done",
-  },
-  {
-    id: "003",
-    title: "Waitlist open",
-    detail:
-      "We're gathering the first cohort of borrowers and lenders. Early members shape the product and get first access at launch.",
+      "This is where you come in. Get on the list and you're first in line when your community opens.",
     stamp: "now" as const,
     stampLabel: "Now",
   },
   {
-    id: "004",
-    title: "First cohort goes live",
+    id: "003",
+    title: "First cohort",
     detail:
-      "First loans launch inside a single campus community — where reputation already matters — then expand community by community, city by city.",
+      "We're starting inside one community where your name already carries weight, then opening up, city by city.",
     stamp: "next" as const,
     stampLabel: "Next",
+  },
+  {
+    id: "004",
+    title: "Launch",
+    detail: "Soon. And we mean actual soon, not 'I'm outside' soon.",
+    stamp: "green" as const,
+    stampLabel: "Soon",
   },
 ];
 
 export const founderNote = {
   paras: [
-    "Everyone knows the message: “Abeg, I'll pay you back next week.” Sometimes they do. Sometimes they don't — and there's no record, no recourse, and no reward for the people who always keep their word.",
-    "We think keeping your word should count for something. Your repayment history — proof that you're good for it — should open doors long after the loan: bigger amounts, better terms, a financial identity that's actually yours.",
-    "We built the entire platform before asking anyone to sign up. Now we're inviting the first cohort in.",
+    "Everyone knows the message: “Abeg, I'll pay you back next week.” Sometimes they do. Sometimes they don't. And there's never a record, never any recourse, and never a reward for the people who always come through.",
+    "We think keeping your word should count for something. Your history of paying people back is proof that you're good for it, and it should open doors long after the loan: bigger amounts, better terms, a financial name that's actually yours.",
+    "We did the hard part before asking anyone to sign up. Now we're letting the first people in.",
   ],
-  signature: "Murewa, Timi & Olu — Founders, Yami",
+  signature: "Murewa, Timi & Olu, Founders of Yami",
 };
 
 export const faqs = [
   {
     q: "Is Yami a loan app?",
-    a: "No. Yami doesn't lend money, hold deposits, or set rates. We provide the infrastructure — verified identities, structured agreements, and a trust score — that lets people lend to each other safely and on the record.",
+    a: "No. Yami doesn't lend money, hold your cash, or set rates. We give people the tools to lend to each other safely: verified identities, a real agreement, and a trust score. The money is always between you and another person.",
   },
   {
     q: "Who is Yami for?",
-    a: "Any young Nigerian who already lends or borrows within their circle — students and young professionals alike. We're opening access community by community, starting where reputation already carries weight.",
+    a: "Any young Nigerian who already lends or borrows within their circle. Students, young professionals, anyone whose word is good. We're opening up community by community, starting where reputation already matters.",
   },
   {
     q: "When does Yami launch?",
-    a: "The platform is built and running on staging. We're gathering the first cohort now and going live inside a single community first, then expanding city by city. Join the waitlist and we'll message you when your community opens.",
+    a: "Soon. We're opening in one community first, then more, city by city. Join the waitlist and you'll be first to know when yours goes live. And when we say soon, we actually mean it.",
   },
   {
     q: "Why join the waitlist now?",
-    a: "Early members shape the product and get first access when their community goes live. The earlier you join, the earlier your place in line — and the sooner your trust score starts building.",
+    a: "Because the earlier you join, the earlier your spot. Early members help shape the product, get in first when their community opens, and start building their trust score before everyone else.",
   },
   {
     q: "Is my BVN safe?",
-    a: "Yes. Your BVN is used only to verify your identity through a licensed provider. We don't store it on our servers, and verification data is encrypted in line with industry standards.",
+    a: "Yes. Your BVN is only used to confirm you're really you, through a licensed partner. We don't keep it on our servers, and your details are encrypted.",
   },
   {
     q: "What happens if someone doesn't repay?",
-    a: "Their trust score drops sharply — trust breaks faster than it builds — which limits their access to borrow again. The signed agreement stands as documented proof of the debt, and repeat defaulters are flagged across the network. On Yami, behaviour has consequences.",
+    a: "Their trust score takes a real hit, which makes it harder for them to borrow again. The signed agreement is proof of the debt, and people who keep defaulting get flagged across the network. On Yami, how you behave follows you.",
   },
   {
     q: "How does the trust score work?",
-    a: "Your score is built from real behaviour: your repayment rate, your repayment speed, and whether you complete the agreements you sign. It starts when you verify your identity and grows with every kept promise. It's your financial reputation, made visible.",
+    a: "It's built from what you actually do: whether you pay back what you agreed, how quickly you pay, and whether you finish the agreements you sign. It starts the day you verify yourself and grows with every promise you keep.",
   },
 ];
 

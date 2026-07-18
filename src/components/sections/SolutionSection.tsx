@@ -8,7 +8,7 @@ export function SolutionSection() {
   return (
     <DarkPanel id="solution">
       <div className="mx-auto max-w-6xl px-5 py-20 lg:px-8 lg:py-28">
-        <SectionHead dark folio="02 — The Solution">
+        <SectionHead dark folio="02 · The Solution">
           Yami is the rails.
           <br />
           <span className="text-green">Not the money.</span>

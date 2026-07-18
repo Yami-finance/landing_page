@@ -10,14 +10,14 @@ export function WhereWeAre() {
   return (
     <section id="where-we-are" className="scroll-mt-20 border-t border-ink">
       <div className="mx-auto max-w-6xl px-5 py-20 lg:px-8 lg:py-28">
-        <SectionHead folio="05 — Where we are">
-          Built. Tested. Almost yours.
+        <SectionHead folio="05 · Where we are">
+          Almost. Not yet. Soon.
         </SectionHead>
 
         <Reveal className="section-head mt-6">
           <span className="hidden md:block" />
           <p className="max-w-2xl text-[18px] leading-relaxed text-ink-soft">
-            No inflated numbers here — we haven&apos;t launched yet.
+            We&apos;re not live yet. When we are, you&apos;ll be the first to know.
           </p>
         </Reveal>
 

@@ -57,6 +57,9 @@ export default function RootLayout({
     <html
       lang="en"
       className={`${disp.variable} ${body.variable} ${mono.variable}`}
+      // The jsGate script below adds the `js` class before hydration; that's an
+      // intentional pre-paint DOM change, so tell React not to flag it.
+      suppressHydrationWarning
     >
       <head>
         <script dangerouslySetInnerHTML={{ __html: jsGate }} />
