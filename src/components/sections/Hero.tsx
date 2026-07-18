@@ -1,82 +1,76 @@
-import Image from "next/image";
-import { Button } from "@/components/ui/Button";
-import yamiIcon from "@/assets/icons/yami_icon.svg";
-import avatarStack from "@/assets/images/avatar-stack.svg";
-import heroMobileImg from "@/assets/images/hero_mobile_img.png";
+import { Reveal } from "@/components/motion/Reveal";
+import { Highlight } from "@/components/ledger/Highlight";
+import { Stamp } from "@/components/ledger/Stamp";
+import { TicketForm } from "@/components/waitlist/TicketForm";
+import { heroLead, heroMeta } from "@/content/landing";
+import handFill from "@/assets/brand/hand-fill.svg";
 
+// § amendment — the hero (and the nav over it) inverts to the brand's own dark.
+// Two green hands reach in from opposite corners and converge on the Ticket:
+// "two hands, and between them, your spot."
 export function Hero() {
   return (
-    <section className="relative overflow-hidden bg-yami-deep">
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_rgba(210,245,62,0.06)_0%,_transparent_50%)]" />
+    <section
+      id="brand-hero"
+      className="relative overflow-hidden bg-brand-dark text-paper"
+    >
+      {/* Giving hand — lower-left corner. Kept (reduced) on mobile. */}
+      <div
+        aria-hidden="true"
+        className="hand-give pointer-events-none absolute bottom-[-15%] left-[-11%] z-0 h-[44%] w-[46%] max-w-[320px] rotate-[-4deg] bg-contain bg-left-bottom bg-no-repeat sm:w-[28%]"
+        style={{ backgroundImage: `url(${handFill.src})` }}
+      />
+      {/* Receiving hand — upper-right. Hidden on ≤768px to keep the ticket clear. */}
+      <div
+        aria-hidden="true"
+        className="hand-receive pointer-events-none absolute right-[-6%] top-[-16%] z-0 hidden h-[64%] w-[34%] max-w-[380px] rotate-[168deg] bg-contain bg-right-top bg-no-repeat md:block"
+        style={{ backgroundImage: `url(${handFill.src})` }}
+      />
 
-      <div className="relative mx-auto grid max-w-7xl gap-12 px-4 py-16 sm:px-6 lg:grid-cols-2 lg:items-center lg:gap-16 lg:py-24 lg:px-8">
-        {/* Left column */}
+      <div className="relative z-10 mx-auto grid max-w-6xl items-center gap-12 px-5 pb-16 pt-14 lg:grid-cols-[1.08fr_0.92fr] lg:gap-16 lg:px-8 lg:pb-24 lg:pt-20">
+        {/* Left */}
         <div>
-          <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-yami-border bg-yami-card/60 px-4 py-1.5 backdrop-blur-md">
-            <Image
-              src={yamiIcon}
-              alt=""
-              width={24}
-              height={19}
-              className="h-5 w-auto shrink-0"
-              priority
-            />
-            <span className="text-sm font-medium text-yami-accent">
-              The Campus Credit Network
+          <Reveal className="flex flex-wrap items-center gap-3">
+            <Stamp state="green">Pre-launch</Stamp>
+            <span className="font-mono text-[12px] uppercase tracking-[0.16em] text-forest-muted">
+              Lagos, Nigeria — est. 2026
             </span>
-          </div>
+          </Reveal>
 
-          <h1 className="text-4xl font-bold leading-tight tracking-tight sm:text-5xl lg:text-[3.25rem]">
-            Your Financial{" "}
-            <span className="text-yami-accent">Reputation, Finally</span>{" "}
-            Visible.
-          </h1>
+          <Reveal delay={60}>
+            <h1 className="mt-6 text-[clamp(44px,5.8vw,80px)] font-extrabold leading-[1.04] text-paper">
+              Lending between people,{" "}
+              <Highlight>
+                <span className="text-ink">on the record.</span>
+              </Highlight>
+            </h1>
+          </Reveal>
 
-          <p className="mt-6 max-w-lg text-base leading-relaxed text-yami-muted">
-            Yami formalises the student lending networks that already exist
-            across Nigerian campuses — with trust scores, structured agreements,
-            and real accountability.
-          </p>
-
-          <div className="mt-8 flex flex-wrap gap-4">
-            <a href="#early-access">
-              <Button>Join the Waitlist</Button>
-            </a>
-            <a href="#how-it-works">
-              <Button variant="secondary">See How It Works</Button>
-            </a>
-          </div>
-
-          <div className="mt-10 flex items-center gap-4">
-            <Image
-              src={avatarStack}
-              alt="Students from 12 universities"
-              width={149}
-              height={45}
-              className="h-11 w-auto shrink-0"
-            />
-            <p className="text-sm text-yami-muted">
-              Trusted by students across{" "}
-              <span className="font-semibold text-yami-accent">
-                12 universities
-              </span>
+          <Reveal delay={120}>
+            <p className="mt-6 max-w-xl text-[18px] leading-relaxed text-forest-muted">
+              {heroLead}
             </p>
-          </div>
+          </Reveal>
+
+          <Reveal delay={180}>
+            <dl className="mt-10 grid max-w-xl grid-cols-1 gap-y-4 border-t border-[rgba(244,242,234,0.16)] pt-6 sm:grid-cols-3 sm:gap-x-6">
+              {heroMeta.map((m) => (
+                <div key={m.k}>
+                  <dt className="font-mono text-[13px] font-semibold uppercase tracking-[0.08em] text-paper">
+                    {m.k}
+                  </dt>
+                  <dd className="mt-1 font-mono text-[12px] uppercase tracking-[0.08em] text-forest-muted">
+                    {m.v}
+                  </dd>
+                </div>
+              ))}
+            </dl>
+          </Reveal>
         </div>
 
-        {/* Right column — app mockup */}
-        <div className="mx-auto w-full max-w-md lg:max-w-none">
-          <div className="relative mx-auto lg:mx-0 lg:max-w-[420px]">
-            <div className="absolute -inset-4 rounded-3xl bg-yami-accent/5 blur-2xl" />
-            <Image
-              src={heroMobileImg}
-              alt="Yami app dashboard showing balance, borrow and lend actions, and active loans"
-              width={420}
-              height={520}
-              className="relative w-full h-auto drop-shadow-2xl"
-              priority
-            />
-          </div>
+        {/* Right — the ticket passes between the hands. */}
+        <div id="waitlist" className="relative z-10 scroll-mt-24 lg:pl-4">
+          <TicketForm defaultIntent="both" source="/" />
         </div>
       </div>
     </section>

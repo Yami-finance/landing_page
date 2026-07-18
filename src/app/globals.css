@@ -2,20 +2,265 @@
 @tailwind components;
 @tailwind utilities;
 
-@font-face {
-  font-family: "Sine";
-  src: url("../assets/fonts/SineSans-Medium.woff2") format("woff2");
-  font-weight: 500;
-  font-style: normal;
-  font-display: swap;
-}
-
 @layer base {
+  /* §2.1 — canonical source of truth. Kept as custom properties so the token
+     language stays greppable and future non-Tailwind consumers (emails, OG
+     images, the app) can share the exact same values. */
+  :root {
+    --paper: #f4f2ea;
+    --paper-2: #edebe1;
+    --card: #fdfcf7;
+    --ink: #141711;
+    --ink-soft: #4e544a;
+    --faint: #8c9186;
+    --green: #dfff3b;
+    --green-ink: #3d4a00;
+    --forest: #16301f;
+    --rule: #d8d5c8;
+    --rule-dark: #141711;
+    --brand-dark: #101315;
+  }
+
   html {
     scroll-behavior: smooth;
+    /* Fixes the sticky-nav anchor overlap: section tops clear the header. */
+    scroll-padding-top: 5.5rem;
   }
 
   body {
-    @apply bg-yami-deep text-white antialiased tracking-tight;
+    @apply bg-paper text-ink font-body antialiased;
+    font-size: 17px;
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1,
+  h2,
+  h3 {
+    @apply font-disp;
+    letter-spacing: -0.015em;
+  }
+
+  ::selection {
+    background: var(--green);
+    color: var(--ink);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--ink);
+    outline-offset: 3px;
+  }
+}
+
+@layer components {
+  /* ── The Ledger grammar (§2.3) — the ~7 signature primitives. ────────────
+     Used ONLY via these classes. If a grid-cols-[200px_1fr_1.4fr] arbitrary
+     value shows up inline in a component, that's the smell that the layer was
+     bypassed. */
+
+  .section-head {
+    @apply grid gap-6 md:grid-cols-[200px_1fr] md:gap-10;
+  }
+
+  .ledger-row {
+    @apply grid items-baseline gap-2 border-b border-rule py-7
+      md:grid-cols-[200px_1fr_1.4fr] md:gap-10;
+  }
+
+  .col-label {
+    @apply font-mono text-[11.5px] uppercase tracking-[0.22em] text-ink-soft;
+  }
+
+  .folio {
+    @apply font-mono text-[11.5px] uppercase tracking-[0.22em] text-ink-soft;
+  }
+
+  /* Full-bleed section boundary — the page reads as ruled ledger paper. */
+  .rule-dark {
+    @apply border-t border-ink;
+  }
+
+  .rule-faint-dark {
+    border-color: rgba(237, 243, 234, 0.16);
+  }
+
+  /* Stamps (§2.3) */
+  .stamp {
+    @apply inline-flex items-center gap-1.5 rounded-[3px] border-[1.5px] border-ink
+      px-2.5 py-1 font-mono text-[11px] font-semibold uppercase tracking-[0.14em];
+  }
+  .stamp-green {
+    @apply bg-green text-ink;
+  }
+  .stamp-now {
+    @apply border-ink bg-transparent;
+  }
+  .stamp-next {
+    @apply bg-transparent;
+    border-style: dashed;
+  }
+  .stamp-recorded {
+    @apply bg-green text-ink;
+    transform: rotate(-3deg);
+  }
+
+  /* Highlighter sweep (§2.3) — green bar behind the lower 40% of a phrase. */
+  .hl {
+    position: relative;
+    white-space: nowrap;
+  }
+  .hl::before {
+    content: "";
+    position: absolute;
+    left: -0.08em;
+    right: -0.08em;
+    bottom: 4%;
+    height: 42%;
+    background: var(--green);
+    z-index: -1;
+    transform: skew(-4deg);
+    transform-origin: left center;
+  }
+  /* Draw-on when the highlight lives inside a scroll-reveal group (§2.4). */
+  .js .reveal .hl::before {
+    transform: skew(-4deg) scaleX(0);
+    transition: transform 0.5s ease-out 0.3s;
+  }
+  .js .reveal.is-visible .hl::before {
+    transform: skew(-4deg) scaleX(1);
+  }
+  .hl-ink::before {
+    bottom: 6%;
+    height: 38%;
+  }
+
+  /* Buttons (§2.3) — solid ink, hard offset shadow on hover. No pills. */
+  .btn {
+    @apply inline-flex cursor-pointer items-center justify-center gap-2 rounded-md
+      bg-ink px-6 py-3 font-disp text-[15px] font-bold text-paper;
+    transition:
+      transform 0.15s ease,
+      box-shadow 0.15s ease;
+  }
+  .btn:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 3px 3px 0 var(--green);
+  }
+  .btn:active {
+    transform: translate(0, 0);
+    box-shadow: none;
+  }
+  .btn-ghost {
+    @apply border-[1.5px] border-ink bg-transparent text-ink;
+  }
+  .btn-ghost:hover {
+    box-shadow: 3px 3px 0 var(--ink);
+  }
+  .btn-sm {
+    @apply px-4 py-2 text-[13px];
+  }
+
+  /* FAQ accordion (§4.10) — native <details>, "+" rotates 45° when open. */
+  .faq-item summary {
+    list-style: none;
+    cursor: pointer;
+  }
+  .faq-item summary::-webkit-details-marker {
+    display: none;
+  }
+  .faq-plus {
+    transition: transform 0.2s ease;
+  }
+  .faq-item[open] .faq-plus {
+    transform: rotate(45deg);
+  }
+}
+
+@layer components {
+  /* ── Motion (§2.4) — hand-rolled, no Framer/ReactBits dependency. ─────────
+     Reveal state only applies when JS is present (.js gate), so the site is
+     fully readable without JavaScript and never flashes empty. */
+  .js .reveal {
+    opacity: 0;
+    transform: translateY(16px);
+    transition:
+      opacity 0.55s ease,
+      transform 0.55s ease;
+    will-change: opacity, transform;
+  }
+  .js .reveal.is-visible {
+    opacity: 1;
+    transform: none;
+  }
+
+  /* Stamp "thump" — used on the waitlist success + any "Recorded" moment. */
+  @keyframes thump {
+    0% {
+      transform: scale(1.6) rotate(-8deg);
+      opacity: 0;
+    }
+    60% {
+      opacity: 1;
+    }
+    100% {
+      transform: scale(1) rotate(-3deg);
+      opacity: 1;
+    }
+  }
+  .thump {
+    animation: thump 0.28s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+  }
+
+  /* Brand hero hands — translate in from their corner once on load (§ amendment).
+     No float/parallax loops. */
+  @keyframes hand-in-left {
+    from {
+      opacity: 0;
+      transform: translate(-24px, 24px);
+    }
+    to {
+      opacity: 1;
+      transform: translate(0, 0);
+    }
+  }
+  @keyframes hand-in-right {
+    from {
+      opacity: 0;
+      transform: translate(24px, -24px);
+    }
+    to {
+      opacity: 1;
+      transform: translate(0, 0);
+    }
+  }
+  .js .hand-give {
+    animation: hand-in-left 0.7s ease-out both;
+  }
+  .js .hand-receive {
+    animation: hand-in-right 0.7s ease-out 0.1s both;
+  }
+
+  /* The seam between the dark brand hero and the paper body — same dashed
+     language as the ticket perforation: the brand moment "tears off". */
+  .tear-line {
+    border-top: 1.5px dashed var(--rule-dark);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+  .js .reveal {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  .hl::before {
+    transform: skew(-4deg) scaleX(1) !important;
   }
 }

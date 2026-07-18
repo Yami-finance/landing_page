@@ -1,69 +1,41 @@
-import { YamiLogo } from "@/components/ui/YamiLogo";
+import { Logo } from "@/components/brand/Logo";
 
-const footerLinks = [
-  { label: "About", href: "#" },
-  { label: "Privacy Policy", href: "#" },
-  { label: "Terms", href: "#" },
-  { label: "Contact", href: "#" },
-];
-
-const socials = [
-  { label: "X", href: "#", icon: "𝕏" },
-  { label: "Instagram", href: "#", icon: "◎" },
-  { label: "LinkedIn", href: "#", icon: "in" },
+const legal = [
+  { label: "Privacy", href: "/legal/privacy" },
+  { label: "Terms", href: "/legal/terms" },
 ];
 
 export function Footer() {
   return (
-    <footer className="border-t border-yami-border bg-black">
-      <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
-        <div className="flex flex-col gap-8 lg:flex-row lg:items-start lg:justify-between">
+    <footer className="border-t border-ink bg-ink text-paper">
+      <div className="mx-auto max-w-6xl px-5 py-14 lg:px-8">
+        <div className="flex flex-col gap-8 md:flex-row md:items-start md:justify-between">
           <div className="max-w-sm">
-            <YamiLogo />
-            <p className="mt-4 text-sm text-yami-muted">
-              Behaviour is the ultimate collateral. Your financial reputation,
-              finally visible.
+            <Logo tone="onDark" />
+            <p className="mt-4 font-mono text-[12.5px] leading-relaxed tracking-wide text-forest-muted">
+              Lending between people, on the record.
             </p>
           </div>
 
-          <ul className="flex flex-wrap gap-6">
-            {footerLinks.map((link) => (
-              <li key={link.label}>
-                <a
-                  href={link.href}
-                  className="text-sm text-yami-muted transition-colors hover:text-white"
-                >
-                  {link.label}
-                </a>
-              </li>
-            ))}
-          </ul>
-
-          <div className="flex gap-3">
-            {socials.map((social) => (
+          <nav aria-label="Footer" className="flex flex-wrap gap-x-8 gap-y-2">
+            {legal.map((l) => (
               <a
-                key={social.label}
-                href={social.href}
-                aria-label={social.label}
-                className="flex h-9 w-9 items-center justify-center rounded-lg border border-yami-border bg-yami-card/60 text-xs text-yami-muted transition-colors hover:border-yami-accent/30 hover:text-white"
+                key={l.href}
+                href={l.href}
+                className="font-mono text-[12.5px] uppercase tracking-[0.12em] text-forest-muted transition-colors hover:text-paper"
               >
-                {social.icon}
+                {l.label}
               </a>
             ))}
-          </div>
+          </nav>
         </div>
 
-        <div className="mt-10 border-t border-yami-border pt-8">
-          <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
-            <p className="max-w-2xl text-xs leading-relaxed text-yami-muted">
-              Yami is not a licensed lender. We provide infrastructure for
-              peer-to-peer agreements between users. All lending activity is
-              between individual users on the platform.
-            </p>
-            <p className="text-xs text-yami-muted shrink-0">
-              © 2026 Yami Finance Ltd.
-            </p>
-          </div>
+        <div className="mt-12 flex flex-col gap-3 border-t border-[rgba(244,242,234,0.14)] pt-6 font-mono text-[11.5px] uppercase tracking-[0.14em] text-forest-muted md:flex-row md:items-center md:justify-between">
+          <p>Built by Arcturian Limited · Lagos, Nigeria</p>
+          <p className="normal-case tracking-normal">
+            Yami is not a lender or deposit-taker.
+          </p>
+          <p>© 2026 Yami</p>
         </div>
       </div>
     </footer>

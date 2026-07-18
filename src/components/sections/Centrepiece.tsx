@@ -1,105 +1,60 @@
-import { TrustScoreGraphic } from "@/components/ui/TrustScoreGraphic";
+"use client";
 
-const statusLevels = ["New", "Building", "Reliable", "Trusted", "Elite"];
-const activeIndex = 3;
-
-const metrics = [
-  {
-    label: "Repayment Rate",
-    icon: (
-      <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-        <circle cx="12" cy="12" r="9" />
-        <path d="M12 8v4M12 16h.01" />
-      </svg>
-    ),
-  },
-  {
-    label: "Repayment Speed",
-    icon: (
-      <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-        <path d="M3 12h4l3-8 4 16 3-8h4" />
-      </svg>
-    ),
-  },
-  {
-    label: "Agreement Completion",
-    icon: (
-      <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-        <rect x="4" y="4" width="16" height="16" rx="2" />
-        <path d="M8 12l3 3 5-6" />
-      </svg>
-    ),
-  },
-];
+import { useState } from "react";
+import { SectionHead } from "@/components/ledger/SectionHead";
+import { ScoreCard } from "@/components/score/ScoreCard";
+import { Reveal } from "@/components/motion/Reveal";
+import { factors, portability } from "@/content/landing";
 
 export function Centrepiece() {
+  // Factor i lights a segment in the aspirational band (Reliable→Elite),
+  // suggesting each behaviour pushes you up the scale (§4.6 interactive).
+  const [pulse, setPulse] = useState<number | null>(null);
+
   return (
-    <section id="trust-score" className="relative overflow-hidden bg-yami-deep py-20 lg:py-28">
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_70%_50%_at_50%_35%,rgba(210,245,62,0.1)_0%,transparent_65%)]" />
+    <section id="trust-score" className="scroll-mt-20 border-t border-ink">
+      <div className="mx-auto max-w-6xl px-5 py-20 lg:px-8 lg:py-28">
+        <SectionHead folio="03 — The Centrepiece">
+          A number that means you keep your word.
+        </SectionHead>
 
-      <div className="relative mx-auto max-w-3xl px-4 text-center sm:px-6 lg:px-8">
-        <p className="text-sm font-semibold uppercase tracking-[0.2em] text-yami-accent">
-          The Centrepiece
-        </p>
+        <div className="mt-14 grid gap-10 lg:grid-cols-[0.85fr_1.15fr] lg:items-start lg:gap-16">
+          <Reveal>
+            <ScoreCard score={791} pulseIndex={pulse} />
+          </Reveal>
 
-        <div className="relative mt-10">
-          <div className="absolute left-1/2 top-1/2 h-48 w-full max-w-lg -translate-x-1/2 -translate-y-1/2 bg-[radial-gradient(ellipse_at_center,rgba(210,245,62,0.12)_0%,transparent_70%)]" />
-          <TrustScoreGraphic size="lg" />
-          <p className="mt-3 text-xl font-bold uppercase tracking-[0.25em] text-yami-accent sm:text-2xl">
-            TRUSTED
-          </p>
-        </div>
+          <Reveal delay={80}>
+            <div className="border-t border-ink">
+              {factors.map((f, i) => (
+                <div
+                  key={f.title}
+                  tabIndex={0}
+                  onMouseEnter={() => setPulse(i + 2)}
+                  onMouseLeave={() => setPulse(null)}
+                  onFocus={() => setPulse(i + 2)}
+                  onBlur={() => setPulse(null)}
+                  className="grid grid-cols-[42px_1fr] gap-3 border-b border-rule py-5 outline-none transition-colors hover:bg-paper-2 focus-visible:bg-paper-2"
+                >
+                  <span className="col-label pt-1">{f.label}</span>
+                  <div>
+                    <h3 className="text-[18px] font-bold text-ink">{f.title}</h3>
+                    <p className="mt-1 text-[15.5px] text-ink-soft">{f.detail}</p>
+                  </div>
+                </div>
+              ))}
 
-        {/* Status bar */}
-        <div className="mt-14">
-          <div className="mx-auto flex max-w-md justify-center gap-1.5 sm:gap-2">
-            {statusLevels.map((level, i) => (
-              <div
-                key={level}
-                className={`h-1 flex-1 max-w-16 rounded-full ${
-                  i >= 2 ? "bg-yami-accent" : "bg-yami-border"
-                }`}
-              />
-            ))}
-          </div>
-          <div className="mx-auto mt-4 flex max-w-md justify-between gap-1 px-1">
-            {statusLevels.map((level, i) => (
-              <span
-                key={level}
-                className={`text-[10px] sm:text-xs ${
-                  i === activeIndex
-                    ? "font-semibold text-yami-accent"
-                    : i >= 2
-                      ? "text-yami-accent/80"
-                      : "text-yami-muted"
-                }`}
+              <p className="mt-7 max-w-xl text-[15.5px] leading-relaxed text-ink-soft">
+                {portability}
+              </p>
+              <a
+                href="/trust-score#simulator"
+                className="mt-5 inline-block font-mono text-[13px] uppercase tracking-[0.12em] text-ink underline decoration-green decoration-2 underline-offset-4 hover:text-green-ink"
               >
-                {level}
-              </span>
-            ))}
-          </div>
-        </div>
-
-        {/* Metrics */}
-        <div className="mt-14 flex flex-wrap justify-center gap-8 sm:gap-12">
-          {metrics.map((metric) => (
-            <div key={metric.label} className="flex flex-col items-center gap-3">
-              <div className="flex h-11 w-11 items-center justify-center rounded-xl border border-yami-accent/30 bg-yami-card/60 text-yami-accent backdrop-blur-md">
-                {metric.icon}
-              </div>
-              <span className="max-w-[7rem] text-center text-xs leading-snug text-yami-muted">
-                {metric.label}
-              </span>
+                See how it moves →
+              </a>
             </div>
-          ))}
+          </Reveal>
         </div>
-
-        <a
-          href="#early-access"
-          className="mt-12 inline-block text-sm font-medium text-yami-accent transition-opacity hover:opacity-80"
-        >
-          Start building yours →
-        </a>
       </div>
     </section>
   );
