@@ -1,5 +1,4 @@
 import { Reveal } from "@/components/motion/Reveal";
-import { Stamp } from "@/components/ledger/Stamp";
 import { TicketForm } from "@/components/waitlist/TicketForm";
 import { heroLead, heroMeta } from "@/content/landing";
 import handFill from "@/assets/brand/hand-fill.svg";
@@ -13,20 +12,24 @@ export function Hero() {
       id="brand-hero"
       className="relative overflow-hidden bg-brand-dark text-paper"
     >
-      {/* Giving hand — large, palm in the lower-left corner, fingers reaching
-          up-right toward the centre (per the brand composition). Smaller on
-          mobile. */}
-      <div
+      {/* Giving hand — palm in the lower-left corner, fingers reaching up-right
+          toward the ticket. Rendered as a sized <img> (not a bg) so the whole
+          hand always shows regardless of viewport width. Smaller on mobile. */}
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img
+        src={handFill.src}
+        alt=""
         aria-hidden="true"
-        className="hand-give pointer-events-none absolute bottom-[-10%] left-[-20%] z-0 h-[42%] w-[66%] rotate-[160deg] bg-contain bg-center bg-no-repeat sm:bottom-[-15%] sm:left-[-17%] sm:h-[74%] sm:w-[42%] sm:max-w-[460px]"
-        style={{ backgroundImage: `url(${handFill.src})` }}
+        className="hand-give pointer-events-none absolute bottom-[-3vw] left-[-8vw] z-0 w-[44vw] max-w-[220px] [rotate:180deg] sm:w-[23vw] sm:max-w-[360px]"
       />
-      {/* Receiving hand — large, palm in the upper-right corner, fingers
-          reaching down-left toward the ticket. Hidden on ≤768px. */}
-      <div
+      {/* Receiving hand — palm in the upper-right corner, fingers reaching
+          down-left toward the ticket. Hidden on ≤768px to keep the ticket clear. */}
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img
+        src={handFill.src}
+        alt=""
         aria-hidden="true"
-        className="hand-receive pointer-events-none absolute right-[-7%] top-[-13%] z-0 hidden h-[76%] w-[36%] max-w-[440px] rotate-[-4deg] bg-contain bg-center bg-no-repeat md:block"
-        style={{ backgroundImage: `url(${handFill.src})` }}
+        className="hand-receive pointer-events-none absolute right-[-5vw] top-[-6vw] z-0 hidden w-[26vw] max-w-[400px] [rotate:-4deg] md:block"
       />
 
       <div className="relative z-10 mx-auto grid max-w-6xl items-center gap-12 px-5 pb-16 pt-14 lg:grid-cols-[1.08fr_0.92fr] lg:gap-16 lg:px-8 lg:pb-24 lg:pt-20">

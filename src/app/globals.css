@@ -213,24 +213,26 @@
 
   /* Brand hero hands — translate in from their corner once on load (§ amendment).
      No float/parallax loops. */
+  /* Animate the independent `translate` property (not `transform`) so it
+     composes with each hand's `rotate` property instead of clobbering it. */
   @keyframes hand-in-left {
     from {
       opacity: 0;
-      transform: translate(-24px, 24px);
+      translate: -24px 24px;
     }
     to {
       opacity: 1;
-      transform: translate(0, 0);
+      translate: 0 0;
     }
   }
   @keyframes hand-in-right {
     from {
       opacity: 0;
-      transform: translate(24px, -24px);
+      translate: 24px -24px;
     }
     to {
       opacity: 1;
-      transform: translate(0, 0);
+      translate: 0 0;
     }
   }
   .js .hand-give {
