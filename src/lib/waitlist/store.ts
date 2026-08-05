@@ -28,6 +28,7 @@ async function addSupabase(entry: WaitlistEntry): Promise<AddResult> {
     .from("waitlist")
     .insert({
       name: entry.name,
+      email: entry.email,
       phone: entry.phone,
       intent: entry.intent,
       amount_range: entry.amount_range,
@@ -81,15 +82,16 @@ async function ensureSchema() {
       const sql = await neonSql();
       await sql`
         CREATE TABLE IF NOT EXISTS waitlist (
-          id          bigserial PRIMARY KEY,
-          created_at  timestamptz NOT NULL DEFAULT now(),
-          name        text NOT NULL,
-          phone       text NOT NULL UNIQUE,
-          intent      text NOT NULL,
+          id           bigserial PRIMARY KEY,
+          created_at   timestamptz NOT NULL DEFAULT now(),
+          name         text NOT NULL,
+          email        text NOT NULL,
+          phone        text NOT NULL UNIQUE,
+          intent       text NOT NULL,
           amount_range text NOT NULL,
-          where_at    text NOT NULL,
-          source      text,
-          ua          text
+          where_at     text NOT NULL,
+          source       text,
+          ua           text
         )`;
     })().catch((e) => {
       schemaReady = null;
@@ -103,8 +105,8 @@ async function addNeon(entry: WaitlistEntry): Promise<AddResult> {
   await ensureSchema();
   const sql = await neonSql();
   const inserted = await sql`
-    INSERT INTO waitlist (name, phone, intent, amount_range, where_at, source, ua)
-    VALUES (${entry.name}, ${entry.phone}, ${entry.intent}, ${entry.amount_range},
+    INSERT INTO waitlist (name, email, phone, intent, amount_range, where_at, source, ua)
+    VALUES (${entry.name}, ${entry.email}, ${entry.phone}, ${entry.intent}, ${entry.amount_range},
             ${entry.where}, ${entry.source ?? null}, ${entry.ua ?? null})
     ON CONFLICT (phone) DO NOTHING
     RETURNING created_at`;

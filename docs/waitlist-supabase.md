@@ -35,7 +35,7 @@ Neon and the local file.
 ```bash
 curl -s -X POST http://localhost:3000/api/waitlist \
   -H 'Content-Type: application/json' \
-  -d '{"name":"Ada","phone":"08030000001","intent":"borrow","amount_range":"20-50k","where":"Babcock"}'
+  -d '{"name":"Ada","email":"ada@example.com","phone":"08030000001","intent":"borrow","amount_range":"20-50k","where":"Babcock"}'
 # → {"position":1,"already":false}
 ```
 
@@ -47,8 +47,10 @@ rows live in the dashboard under **Table Editor → waitlist**.
 - **Security:** the `service_role` key must never reach the browser. It's only
   read server-side in `src/lib/waitlist/store.ts`, and RLS keeps the table
   otherwise private. Never expose it with a `NEXT_PUBLIC_` prefix.
-- **Columns:** `created_at, name, phone, intent, amount_range, where_at, source, ua`.
-  Phone is stored E.164 (`+234…`) and is the unique dedupe key.
+- **Columns:** `created_at, name, email, phone, intent, amount_range, where_at, source, ua`.
+  Phone is stored E.164 (`+234…`) and is the unique dedupe key. If you created the
+  table before email existed, run the `alter table … add column if not exists email text;`
+  line from `supabase/waitlist.sql` to add it.
 - **Stats:** run `select * from waitlist_stats;` in the SQL Editor for totals,
   borrow/lend split, and the Babcock count.
 - **Switching backends:** the app prefers Supabase whenever its two vars are set.

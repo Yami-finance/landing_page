@@ -36,6 +36,13 @@ export function normalizePhone(raw: string): string | null {
 
 export const WaitlistInput = z.object({
   name: z.string().trim().min(2, "Enter your name").max(80),
+  email: z
+    .string()
+    .trim()
+    .toLowerCase()
+    .min(1, "Enter your email")
+    .email("Enter a valid email")
+    .max(120),
   phone: z
     .string()
     .trim()

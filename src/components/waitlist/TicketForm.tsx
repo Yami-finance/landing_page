@@ -1,7 +1,12 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { AMOUNT_RANGES, INTENTS, type Intent } from "@/lib/waitlist/schema";
+import {
+  AMOUNT_RANGES,
+  INTENTS,
+  normalizePhone,
+  type Intent,
+} from "@/lib/waitlist/schema";
 import { prefersReducedMotion } from "@/components/motion/useInView";
 import { track } from "@/lib/analytics";
 
@@ -16,22 +21,29 @@ const SHARE_TEXT =
 
 // Brand-coloured confetti burst on a successful join. Lazy-loaded so the library
 // never touches the initial bundle, and skipped entirely under reduced motion.
+// A chunk-load failure must never break the join flow — it's decorative.
 async function celebrate() {
   if (typeof window === "undefined" || prefersReducedMotion()) return;
-  const confetti = (await import("canvas-confetti")).default;
-  const colors = ["#DFFF3B", "#141711", "#16301F"];
-  const opts = { origin: { y: 0.7 }, colors, disableForReducedMotion: true };
-  confetti({ ...opts, particleCount: 80, spread: 70, startVelocity: 45 });
-  setTimeout(
-    () => confetti({ ...opts, particleCount: 50, spread: 100, scalar: 0.9, decay: 0.92 }),
-    150
-  );
+  try {
+    const confetti = (await import("canvas-confetti")).default;
+    const colors = ["#DFFF3B", "#141711", "#16301F"];
+    const opts = { origin: { y: 0.7 }, colors, disableForReducedMotion: true };
+    confetti({ ...opts, particleCount: 80, spread: 70, startVelocity: 45 });
+    setTimeout(
+      () =>
+        confetti({ ...opts, particleCount: 50, spread: 100, scalar: 0.9, decay: 0.92 }),
+      150
+    );
+  } catch {
+    // A failed confetti chunk must never break the join flow.
+    return;
+  }
 }
 
 const easeOutCubic = (t: number) => 1 - Math.pow(1 - t, 3);
 
 type Status = "idle" | "submitting" | "success" | "error";
-type FieldErrors = Partial<Record<"name" | "phone" | "where", string>>;
+type FieldErrors = Partial<Record<"name" | "email" | "phone" | "where", string>>;
 
 export function TicketForm({
   defaultIntent = "both",
@@ -42,6 +54,7 @@ export function TicketForm({
 }) {
   const [intent, setIntent] = useState<Intent>(defaultIntent);
   const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [amount, setAmount] = useState("");
   const [where, setWhere] = useState("");
@@ -97,7 +110,12 @@ export function TicketForm({
     setBanner("");
     const nextErrors: FieldErrors = {};
     if (name.trim().length < 2) nextErrors.name = "Enter your name";
+    const trimmedEmail = email.trim();
+    if (!trimmedEmail) nextErrors.email = "Enter your email";
+    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(trimmedEmail))
+      nextErrors.email = "Enter a valid email";
     if (!phone.trim()) nextErrors.phone = "Enter your WhatsApp number";
+    else if (!normalizePhone(phone)) nextErrors.phone = "Enter a valid Nigerian number";
     if (where.trim().length < 2) nextErrors.where = "Where are you?";
     setErrors(nextErrors);
     if (Object.keys(nextErrors).length > 0 || !amount) {
@@ -112,6 +130,7 @@ export function TicketForm({
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           name,
+          email: email.trim(),
           phone,
           intent,
           amount_range: amount,
@@ -125,6 +144,7 @@ export function TicketForm({
         const f = data.fields ?? {};
         setErrors({
           name: f.name?.[0],
+          email: f.email?.[0],
           phone: f.phone?.[0],
           where: f.where?.[0],
         });
@@ -235,6 +255,15 @@ export function TicketForm({
                 value={name}
                 onChange={setName}
                 autoComplete="name"
+              />
+              <Field
+                label="Email"
+                error={errors.email}
+                value={email}
+                onChange={setEmail}
+                type="email"
+                placeholder="you@example.com"
+                autoComplete="email"
               />
               <Field
                 label="WhatsApp number"
