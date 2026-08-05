@@ -6,6 +6,64 @@ export type WaitlistEntry = WaitlistInputParsed & { ua?: string };
 export type AddResult = { position: number; already: boolean };
 
 const DB_URL = process.env.WAITLIST_DATABASE_URL;
+const SUPABASE_URL = process.env.SUPABASE_URL;
+const SUPABASE_SERVICE_ROLE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY;
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Supabase (Postgres) backend. Used when SUPABASE_URL + SUPABASE_SERVICE_ROLE_KEY
+// are set. The service-role key is server-only and bypasses RLS, so the table
+// stays private. See docs/waitlist-supabase.md for the one-time table setup.
+// ─────────────────────────────────────────────────────────────────────────────
+async function supabaseClient() {
+  const { createClient } = await import("@supabase/supabase-js");
+  return createClient(SUPABASE_URL as string, SUPABASE_SERVICE_ROLE_KEY as string, {
+    auth: { persistSession: false },
+  });
+}
+
+async function addSupabase(entry: WaitlistEntry): Promise<AddResult> {
+  const supabase = await supabaseClient();
+
+  const { data: inserted, error } = await supabase
+    .from("waitlist")
+    .insert({
+      name: entry.name,
+      phone: entry.phone,
+      intent: entry.intent,
+      amount_range: entry.amount_range,
+      where_at: entry.where,
+      source: entry.source ?? null,
+      ua: entry.ua ?? null,
+    })
+    .select("created_at")
+    .maybeSingle();
+
+  // 23505 = unique_violation on phone → already on the list.
+  if (error && error.code !== "23505") {
+    throw new Error(`supabase insert: ${error.message}`);
+  }
+
+  if (inserted) {
+    const { count } = await supabase
+      .from("waitlist")
+      .select("*", { count: "exact", head: true });
+    return { position: count ?? 0, already: false };
+  }
+
+  // Duplicate phone — return the existing place in line (rows at or before it).
+  const { data: existing } = await supabase
+    .from("waitlist")
+    .select("created_at")
+    .eq("phone", entry.phone)
+    .maybeSingle();
+
+  const { count } = await supabase
+    .from("waitlist")
+    .select("*", { count: "exact", head: true })
+    .lte("created_at", existing?.created_at ?? new Date().toISOString());
+
+  return { position: count ?? 0, already: true };
+}
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Neon Postgres backend (used when WAITLIST_DATABASE_URL is set).
@@ -99,7 +157,14 @@ async function addFile(entry: WaitlistEntry): Promise<AddResult> {
 }
 
 export async function addToWaitlist(entry: WaitlistEntry): Promise<AddResult> {
-  return DB_URL ? addNeon(entry) : addFile(entry);
+  if (SUPABASE_URL && SUPABASE_SERVICE_ROLE_KEY) return addSupabase(entry);
+  if (DB_URL) return addNeon(entry);
+  return addFile(entry);
 }
 
-export const storageBackend = DB_URL ? "neon" : "file";
+export const storageBackend =
+  SUPABASE_URL && SUPABASE_SERVICE_ROLE_KEY
+    ? "supabase"
+    : DB_URL
+      ? "neon"
+      : "file";
