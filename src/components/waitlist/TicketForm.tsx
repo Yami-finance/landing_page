@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { AMOUNT_RANGES, INTENTS, type Intent } from "@/lib/waitlist/schema";
+import { prefersReducedMotion } from "@/components/motion/useInView";
 import { track } from "@/lib/analytics";
 
 const AMOUNT_LABEL: Record<Intent, string> = {
@@ -12,6 +13,22 @@ const AMOUNT_LABEL: Record<Intent, string> = {
 
 const SHARE_TEXT =
   "I just claimed my spot on Yami — lending between people, on the record. yami.ng";
+
+// Brand-coloured confetti burst on a successful join. Lazy-loaded so the library
+// never touches the initial bundle, and skipped entirely under reduced motion.
+async function celebrate() {
+  if (typeof window === "undefined" || prefersReducedMotion()) return;
+  const confetti = (await import("canvas-confetti")).default;
+  const colors = ["#DFFF3B", "#141711", "#16301F"];
+  const opts = { origin: { y: 0.7 }, colors, disableForReducedMotion: true };
+  confetti({ ...opts, particleCount: 80, spread: 70, startVelocity: 45 });
+  setTimeout(
+    () => confetti({ ...opts, particleCount: 50, spread: 100, scalar: 0.9, decay: 0.92 }),
+    150
+  );
+}
+
+const easeOutCubic = (t: number) => 1 - Math.pow(1 - t, 3);
 
 type Status = "idle" | "submitting" | "success" | "error";
 type FieldErrors = Partial<Record<"name" | "phone" | "where", string>>;
@@ -35,11 +52,33 @@ export function TicketForm({
     position: 0,
     already: false,
   });
+  const [posDisplay, setPosDisplay] = useState(0);
   const viewed = useRef(false);
 
   useEffect(() => {
     setIntent(defaultIntent);
   }, [defaultIntent]);
+
+  // Count the position up to its real value once the success state appears.
+  useEffect(() => {
+    if (status !== "success") return;
+    if (prefersReducedMotion()) {
+      setPosDisplay(result.position);
+      return;
+    }
+    const target = result.position;
+    const duration = 900;
+    let raf = 0;
+    let start: number | null = null;
+    const step = (ts: number) => {
+      if (start === null) start = ts;
+      const p = Math.min((ts - start) / duration, 1);
+      setPosDisplay(Math.round(target * easeOutCubic(p)));
+      if (p < 1) raf = requestAnimationFrame(step);
+    };
+    raf = requestAnimationFrame(step);
+    return () => cancelAnimationFrame(raf);
+  }, [status, result.position]);
 
   useEffect(() => {
     if (!viewed.current) {
@@ -102,6 +141,7 @@ export function TicketForm({
       const data = (await res.json()) as { position: number; already: boolean };
       setResult(data);
       setStatus("success");
+      celebrate();
       track("waitlist_submitted", {
         intent,
         amount_range: amount,
@@ -142,11 +182,18 @@ export function TicketForm({
             <span className="stamp stamp-recorded thump inline-flex text-[13px]">
               ✓ Recorded
             </span>
-            <p className="mt-5 text-[22px] font-extrabold leading-tight text-ink">
-              {result.already ? "You're already" : "You're"} #{result.position}{" "}
-              in line.
+            <p className="mt-5 font-mono text-[12px] font-semibold uppercase tracking-[0.18em] text-ink-soft">
+              {result.already ? "You're already" : "You're on the list"}
             </p>
-            <p className="mt-3 text-[15px] leading-relaxed text-ink-soft">
+            <p className="mt-1 flex items-baseline gap-2">
+              <span className="font-mono text-[52px] font-medium leading-none tracking-tight text-ink tabular-nums">
+                #{posDisplay}
+              </span>
+              <span className="text-[18px] font-bold text-ink-soft">
+                in line
+              </span>
+            </p>
+            <p className="mt-4 text-[15px] leading-relaxed text-ink-soft">
               We&apos;ll message you on WhatsApp when your cohort opens. Yami
               works better when your people are on it — tell one friend.
             </p>
