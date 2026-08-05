@@ -215,7 +215,7 @@ export function TicketForm({
             </p>
             <p className="mt-4 text-[15px] leading-relaxed text-ink-soft">
               We&apos;ll message you on WhatsApp when your cohort opens. Yami
-              works better when your people are on it — tell one friend.
+              works better when your people are on it — tell your friend to tell their friends.
             </p>
             <a
               href={`https://wa.me/?text=${encodeURIComponent(SHARE_TEXT)}`}
