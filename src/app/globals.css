@@ -174,6 +174,67 @@
   .faq-item[open] .faq-plus {
     transform: rotate(45deg);
   }
+
+  /* Trust Score simulator range inputs (§2.3) — styled with Ledger tokens. */
+  /* The input is 44px tall so the drag target clears the WCAG touch-size
+     guidance, but it's transparent — the visible 6px rule is drawn on the track
+     pseudo-element instead. Sizing the input itself would make the rule a slab. */
+  .sim-range {
+    @apply h-11 w-full cursor-pointer appearance-none bg-transparent;
+  }
+  .sim-range::-webkit-slider-runnable-track {
+    @apply h-1.5 rounded-full bg-rule;
+  }
+  .sim-range::-moz-range-track {
+    @apply h-1.5 rounded-full bg-rule;
+  }
+  .sim-range::-webkit-slider-thumb {
+    @apply h-6 w-6 cursor-pointer appearance-none rounded-full border-[2px] border-ink bg-green;
+    /* Centre the 24px thumb on the 6px track: (6 − 24) / 2. */
+    margin-top: -9px;
+    transition: transform 0.15s ease;
+  }
+  .sim-range::-webkit-slider-thumb:hover {
+    transform: scale(1.15);
+  }
+  .sim-range::-moz-range-thumb {
+    @apply h-6 w-6 cursor-pointer appearance-none rounded-full border-[2px] border-ink bg-green;
+    transition: transform 0.15s ease;
+  }
+  .sim-range::-moz-range-thumb:hover {
+    transform: scale(1.15);
+  }
+  .sim-range:focus-visible {
+    outline: 2px solid var(--ink);
+    outline-offset: 4px;
+  }
+
+  /* Legal document prose. Deliberately not @tailwindcss/typography — that plugin
+     ships its own gray scale, which is the exact token drift the replaced palette
+     in tailwind.config.js exists to prevent. */
+  .legal-prose > * + * {
+    @apply mt-4;
+  }
+  .legal-prose p {
+    @apply text-[15.5px] leading-relaxed text-ink-soft;
+  }
+  .legal-prose ul {
+    @apply space-y-2;
+  }
+  .legal-prose li {
+    @apply relative pl-5 text-[15.5px] leading-relaxed text-ink-soft;
+  }
+  /* Ledger tick rather than a round bullet — matches the stamp language. */
+  .legal-prose li::before {
+    content: "—";
+    @apply absolute left-0 text-faint;
+  }
+  .legal-prose a {
+    @apply text-ink underline decoration-green decoration-2 underline-offset-4;
+  }
+  .legal-prose a:hover {
+    @apply text-green-ink;
+  }
 }
 
 @layer components {

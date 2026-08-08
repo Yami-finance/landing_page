@@ -14,7 +14,7 @@ function clientIp(req: NextRequest): string {
 
 export async function POST(req: NextRequest) {
   const ip = clientIp(req);
-  const rl = rateLimit(ip);
+  const rl = await rateLimit(ip);
   if (!rl.ok) {
     return NextResponse.json(
       { error: "Too many requests. Try again shortly." },

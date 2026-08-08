@@ -18,6 +18,11 @@ Neon and the local file.
    This creates the `waitlist` table (with a unique `phone` for dedupe), turns on
    Row Level Security, and adds a `waitlist_stats` view.
 
+   Then do the same with [`supabase/rate-limit.sql`](../supabase/rate-limit.sql).
+   That adds the `rate_limit` table and the atomic `hit_rate_limit()` function, so
+   the 10/min limit holds across serverless instances instead of per-instance. Skip
+   it and the app quietly falls back to the in-memory counter.
+
 3. **Grab the keys:** dashboard → **Project Settings → API**:
    - **Project URL** → `SUPABASE_URL`
    - **`service_role` secret key** (under "Project API keys" — *not* the `anon`
@@ -55,3 +60,8 @@ rows live in the dashboard under **Table Editor → waitlist**.
   borrow/lend split, and the Babcock count.
 - **Switching backends:** the app prefers Supabase whenever its two vars are set.
   Clear them to fall back to Neon → local file with no code change.
+- **Rate limiting:** keys in `rate_limit` are a SHA-256 of the IP plus
+  `RATE_LIMIT_SALT`, never a raw IP — an IP is personal data under NDPA, and the
+  limiter doesn't need a readable key. Expired rows are swept automatically. The
+  limiter **fails open**: if Postgres is unreachable it logs and allows the request,
+  because a blocked signup is worse than an unenforced limit.

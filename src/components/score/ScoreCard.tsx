@@ -13,11 +13,17 @@ export function ScoreCard({
   score,
   pulseIndex = null,
   className = "",
+  animate = true,
 }: {
   score: number;
   /** Segment to briefly emphasise on factor hover (§4.6 interactive). */
   pulseIndex?: number | null;
   className?: string;
+  /**
+   * Count up to the score on first view. Off for the simulator, where the value
+   * changes on every slider tick and a 1.1s count-up would fight the drag.
+   */
+  animate?: boolean;
 }) {
   const activeIndex = tierIndexFor(score);
   const tier = tierNameFor(score);
@@ -31,10 +37,16 @@ export function ScoreCard({
       </p>
 
       <div className="mt-3">
-        <CountUp
-          value={score}
-          className="text-[clamp(56px,9vw,76px)] font-medium leading-none text-green"
-        />
+        {animate ? (
+          <CountUp
+            value={score}
+            className="text-[clamp(56px,9vw,76px)] font-medium leading-none text-green"
+          />
+        ) : (
+          <span className="font-mono tabular-nums text-[clamp(56px,9vw,76px)] font-medium leading-none text-green">
+            {String(score).padStart(3, "0")}
+          </span>
+        )}
       </div>
       <p className="mt-3 font-mono text-[12px] font-semibold uppercase tracking-[0.3em] text-green">
         {tier}
