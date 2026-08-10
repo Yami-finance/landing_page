@@ -17,7 +17,7 @@ const AMOUNT_LABEL: Record<Intent, string> = {
 };
 
 const SHARE_TEXT =
-  "I just claimed my spot on Yami — lending between people, on the record. yami.ng";
+  "I just claimed my spot on Yami — lending between people, on the record. yami.finance";
 
 // Brand-coloured confetti burst on a successful join. Lazy-loaded so the library
 // never touches the initial bundle, and skipped entirely under reduced motion.

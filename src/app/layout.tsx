@@ -26,7 +26,7 @@ const mono = IBM_Plex_Mono({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://yami.ng"),
+  metadataBase: new URL("https://yami.finance"),
   title: {
     default: "Yami — Lending between people, on the record.",
     template: "%s — Yami",
@@ -37,7 +37,7 @@ export const metadata: Metadata = {
     title: "Yami — Lending between people, on the record.",
     description:
       "Structured agreements, repayment history, and a trust score for the lending young Nigerians already do.",
-    url: "https://yami.ng",
+    url: "https://yami.finance",
     siteName: "Yami",
     locale: "en_NG",
     type: "website",
