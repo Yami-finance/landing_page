@@ -11,11 +11,15 @@ create table if not exists public.waitlist (
   amount_range text not null,
   where_at     text not null,
   source       text,
-  ua           text
+  ua           text,
+  email_verified boolean not null default false  -- true once the OTP is confirmed
 );
 
 -- Existing tables: add the email column (idempotent — safe to re-run).
 alter table public.waitlist add column if not exists email text;
+
+-- Email-verified flag for the OTP flow (idempotent — safe to re-run).
+alter table public.waitlist add column if not exists email_verified boolean not null default false;
 
 -- Keep the table private. The app writes with the service-role key (server-only),
 -- which bypasses RLS; enabling RLS with no policies blocks the public anon key.

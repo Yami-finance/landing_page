@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Bricolage_Grotesque, Public_Sans, IBM_Plex_Mono } from "next/font/google";
+import { faqs } from "@/content/landing";
 import "./globals.css";
 
 // §2.2 — Display / Body / Data. Self-hosted via next/font (preconnect-free,
@@ -25,22 +26,44 @@ const mono = IBM_Plex_Mono({
   display: "swap",
 });
 
+// FAQ structured data (§ SEO) — generated from the same copy the FAQ renders,
+// so the schema and the page can never disagree.
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: faqs.map((f) => ({
+    "@type": "Question",
+    name: f.q,
+    acceptedAnswer: { "@type": "Answer", text: f.a },
+  })),
+};
+
 export const metadata: Metadata = {
   metadataBase: new URL("https://yami.finance"),
   title: {
-    default: "Yami — Lending between people, on the record.",
-    template: "%s — Yami",
+    default:
+      "Yami | P2P Lending Between Friends in Nigeria | Borrow. Lend. Build Trust.",
+    template: "%s | Yami",
   },
   description:
-    "Yami gives the lending young Nigerians already do what it's always lacked: structured agreements, repayment history, and a trust score that opens doors. Not a loan app.",
+    "You already lend money to people you trust. Yami makes it official, verified identities, a real agreement, and a trust score that grows every time you keep your word.",
+  applicationName: "Yami",
+  alternates: { canonical: "https://yami.finance" },
+  robots: { index: true, follow: true },
   openGraph: {
-    title: "Yami — Lending between people, on the record.",
+    title: "Yami | P2P Lending Between Friends in Nigeria",
     description:
-      "Structured agreements, repayment history, and a trust score for the lending young Nigerians already do.",
+      "Verified identities, signed agreements, and a trust score for the lending young Nigerians already do between friends.",
     url: "https://yami.finance",
     siteName: "Yami",
     locale: "en_NG",
     type: "website",
+  },
+  twitter: {
+    card: "summary",
+    title: "Yami | P2P Lending Between Friends in Nigeria",
+    description:
+      "Verified identities, signed agreements, and a trust score for the lending young Nigerians already do between friends.",
   },
 };
 
@@ -63,6 +86,10 @@ export default function RootLayout({
     >
       <head>
         <script dangerouslySetInnerHTML={{ __html: jsGate }} />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+        />
       </head>
       <body className="font-body">{children}</body>
     </html>

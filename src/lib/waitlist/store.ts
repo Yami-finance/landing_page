@@ -1,8 +1,15 @@
 import { promises as fs } from "node:fs";
 import path from "node:path";
+import type {
+  PostgrestSingleResponse,
+  SupabaseClient,
+} from "@supabase/supabase-js";
 import type { WaitlistInputParsed } from "./schema";
 
-export type WaitlistEntry = WaitlistInputParsed & { ua?: string };
+export type WaitlistEntry = WaitlistInputParsed & {
+  ua?: string;
+  email_verified?: boolean;
+};
 export type AddResult = { position: number; already: boolean };
 
 const DB_URL = process.env.WAITLIST_DATABASE_URL;
@@ -21,23 +28,59 @@ async function supabaseClient() {
   });
 }
 
+type SupabaseRow = {
+  name: string;
+  email: string;
+  phone: string;
+  intent: string;
+  amount_range: string;
+  where_at: string;
+  source: string | null;
+  ua: string | null;
+  email_verified?: boolean;
+};
+
+async function insertWaitlist(
+  supabase: SupabaseClient,
+  row: SupabaseRow
+): Promise<PostgrestSingleResponse<{ created_at: string } | null>> {
+  const attempt = await supabase
+    .from("waitlist")
+    .insert(row)
+    .select("created_at")
+    .maybeSingle();
+  // email_verified column not migrated yet (42703 or PostgREST's PGRST204
+  // schema-cache miss) — retry without the flag so an un-run migration can
+  // never take the join flow down.
+  if (
+    attempt.error?.code === "42703" ||
+    /could not find the .* column/i.test(attempt.error?.message ?? "")
+  ) {
+    const base = { ...row };
+    delete base.email_verified;
+    return supabase
+      .from("waitlist")
+      .insert(base)
+      .select("created_at")
+      .maybeSingle();
+  }
+  return attempt;
+}
+
 async function addSupabase(entry: WaitlistEntry): Promise<AddResult> {
   const supabase = await supabaseClient();
 
-  const { data: inserted, error } = await supabase
-    .from("waitlist")
-    .insert({
-      name: entry.name,
-      email: entry.email,
-      phone: entry.phone,
-      intent: entry.intent,
-      amount_range: entry.amount_range,
-      where_at: entry.where,
-      source: entry.source ?? null,
-      ua: entry.ua ?? null,
-    })
-    .select("created_at")
-    .maybeSingle();
+  const { data: inserted, error } = await insertWaitlist(supabase, {
+    name: entry.name,
+    email: entry.email,
+    phone: entry.phone,
+    intent: entry.intent,
+    amount_range: entry.amount_range,
+    where_at: entry.where,
+    source: entry.source ?? null,
+    ua: entry.ua ?? null,
+    email_verified: entry.email_verified ?? false,
+  });
 
   // 23505 = unique_violation on phone → already on the list.
   if (error && error.code !== "23505") {
@@ -91,7 +134,8 @@ async function ensureSchema() {
           amount_range text NOT NULL,
           where_at     text NOT NULL,
           source       text,
-          ua           text
+          ua           text,
+          email_verified boolean NOT NULL DEFAULT false
         )`;
     })().catch((e) => {
       schemaReady = null;
@@ -105,9 +149,9 @@ async function addNeon(entry: WaitlistEntry): Promise<AddResult> {
   await ensureSchema();
   const sql = await neonSql();
   const inserted = await sql`
-    INSERT INTO waitlist (name, email, phone, intent, amount_range, where_at, source, ua)
+    INSERT INTO waitlist (name, email, phone, intent, amount_range, where_at, source, ua, email_verified)
     VALUES (${entry.name}, ${entry.email}, ${entry.phone}, ${entry.intent}, ${entry.amount_range},
-            ${entry.where}, ${entry.source ?? null}, ${entry.ua ?? null})
+            ${entry.where}, ${entry.source ?? null}, ${entry.ua ?? null}, ${entry.email_verified ?? false})
     ON CONFLICT (phone) DO NOTHING
     RETURNING created_at`;
 

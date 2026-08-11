@@ -4,7 +4,7 @@ import { useState } from "react";
 import { SectionHead } from "@/components/ledger/SectionHead";
 import { ScoreCard } from "@/components/score/ScoreCard";
 import { Reveal } from "@/components/motion/Reveal";
-import { factors, portability } from "@/content/landing";
+import { centrepieceHeading, factors, portability } from "@/content/landing";
 
 export function Centrepiece() {
   // Factor i lights a segment in the aspirational band (Reliable→Elite),
@@ -14,9 +14,7 @@ export function Centrepiece() {
   return (
     <section id="trust-score" className="scroll-mt-20 border-t border-ink">
       <div className="mx-auto max-w-6xl px-5 py-20 lg:px-8 lg:py-28">
-        <SectionHead folio="03 · The Centrepiece">
-          A number that means you keep your word.
-        </SectionHead>
+        <SectionHead folio="03 · The Centrepiece">{centrepieceHeading}</SectionHead>
 
         <div className="mt-14 grid gap-10 lg:grid-cols-[0.85fr_1.15fr] lg:items-start lg:gap-16">
           <Reveal>

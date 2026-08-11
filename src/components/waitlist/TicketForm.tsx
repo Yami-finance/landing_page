@@ -17,7 +17,7 @@ const AMOUNT_LABEL: Record<Intent, string> = {
 };
 
 const SHARE_TEXT =
-  "I just claimed my spot on Yami — lending between people, on the record. yami.finance";
+  "I just claimed my spot on Yami, lending between people, on the record. yami.finance";
 
 // Brand-coloured confetti burst on a successful join. Lazy-loaded so the library
 // never touches the initial bundle, and skipped entirely under reduced motion.
@@ -66,6 +66,8 @@ export function TicketForm({
     already: false,
   });
   const [posDisplay, setPosDisplay] = useState(0);
+  const [step, setStep] = useState<"details" | "otp">("details");
+  const [otp, setOtp] = useState("");
   const viewed = useRef(false);
 
   useEffect(() => {
@@ -105,27 +107,11 @@ export function TicketForm({
     track("waitlist_intent_selected", { intent: next });
   }
 
-  async function onSubmit(e: React.FormEvent) {
-    e.preventDefault();
+  async function submitConfirm(token: string) {
     setBanner("");
-    const nextErrors: FieldErrors = {};
-    if (name.trim().length < 2) nextErrors.name = "Enter your name";
-    const trimmedEmail = email.trim();
-    if (!trimmedEmail) nextErrors.email = "Enter your email";
-    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(trimmedEmail))
-      nextErrors.email = "Enter a valid email";
-    if (!phone.trim()) nextErrors.phone = "Enter your WhatsApp number";
-    else if (!normalizePhone(phone)) nextErrors.phone = "Enter a valid Nigerian number";
-    if (where.trim().length < 2) nextErrors.where = "Where are you?";
-    setErrors(nextErrors);
-    if (Object.keys(nextErrors).length > 0 || !amount) {
-      if (!amount) setBanner("Pick an amount range.");
-      return;
-    }
-
     setStatus("submitting");
     try {
-      const res = await fetch("/api/waitlist", {
+      const res = await fetch("/api/waitlist/confirm", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -136,11 +122,20 @@ export function TicketForm({
           amount_range: amount,
           where,
           source,
+          otp: token,
         }),
       });
 
       if (res.status === 422) {
-        const data = await res.json();
+        const data = (await res.json()) as {
+          error?: string;
+          fields?: Record<string, string[]>;
+        };
+        if (data.error) {
+          setBanner(data.error);
+          setStatus("idle");
+          return;
+        }
         const f = data.fields ?? {};
         setErrors({
           name: f.name?.[0],
@@ -148,11 +143,12 @@ export function TicketForm({
           phone: f.phone?.[0],
           where: f.where?.[0],
         });
+        setStep("details");
         setStatus("idle");
         return;
       }
       if (res.status === 429) {
-        setBanner("Slow down a moment — try again shortly.");
+        setBanner("Slow down a moment, try again shortly.");
         setStatus("idle");
         return;
       }
@@ -171,9 +167,81 @@ export function TicketForm({
       });
     } catch {
       // Non-blocking — typed input is preserved so they can just retry.
-      setBanner("Couldn't record that — try again.");
+      setBanner("Couldn't record that, try again.");
       setStatus("error");
     }
+  }
+
+  /** Sends the email code, or skips straight to joining when OTP is off. */
+  async function requestOtp(): Promise<boolean> {
+    setBanner("");
+    setStatus("submitting");
+    try {
+      const res = await fetch("/api/waitlist/send-otp", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email: email.trim() }),
+      });
+      if (res.status === 429) {
+        setBanner("Slow down a moment, try again shortly.");
+        setStatus("idle");
+        return false;
+      }
+      const data = (await res.json().catch(() => ({}))) as {
+        otp?: boolean;
+        error?: string;
+      };
+      if (!res.ok) {
+        setBanner(data.error ?? "Couldn't send the code, try again.");
+        setStatus("idle");
+        return false;
+      }
+      if (data.otp) {
+        setOtp("");
+        setStep("otp");
+        setStatus("idle");
+        return true;
+      }
+      // No OTP configured — verify directly (code not required).
+      await submitConfirm("");
+      return true;
+    } catch {
+      setBanner("Couldn't send the code, try again.");
+      setStatus("idle");
+      return false;
+    }
+  }
+
+  async function onSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    setBanner("");
+    const nextErrors: FieldErrors = {};
+    if (name.trim().length < 2) nextErrors.name = "Enter your name";
+    const trimmedEmail = email.trim();
+    if (!trimmedEmail) nextErrors.email = "Enter your email";
+    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(trimmedEmail))
+      nextErrors.email = "Enter a valid email";
+    if (!phone.trim()) nextErrors.phone = "Enter your WhatsApp number";
+    else if (!normalizePhone(phone)) nextErrors.phone = "Enter a valid Nigerian number";
+    if (where.trim().length < 2) nextErrors.where = "Where are you?";
+    setErrors(nextErrors);
+    if (Object.keys(nextErrors).length > 0 || !amount) {
+      if (!amount) setBanner("Pick an amount range.");
+      return;
+    }
+    await requestOtp();
+  }
+
+  async function resendCode() {
+    setOtp("");
+    const ok = await requestOtp();
+    if (ok) setBanner("A fresh code is on its way.");
+  }
+
+  function backToDetails() {
+    setStep("details");
+    setOtp("");
+    setBanner("");
   }
 
   return (
@@ -215,7 +283,7 @@ export function TicketForm({
             </p>
             <p className="mt-4 text-[15px] leading-relaxed text-ink-soft">
               We&apos;ll message you on WhatsApp when your cohort opens. Yami
-              works better when your people are on it — tell your friend to tell their friends.
+              works better when your people are on it, tell your friend to tell their friends.
             </p>
             <a
               href={`https://wa.me/?text=${encodeURIComponent(SHARE_TEXT)}`}
@@ -226,6 +294,73 @@ export function TicketForm({
               Share on WhatsApp →
             </a>
           </div>
+        ) : step === "otp" ? (
+          <form
+            onSubmit={(e) => {
+              e.preventDefault();
+              submitConfirm(otp);
+            }}
+            noValidate
+          >
+            <p className="font-mono text-[12px] leading-relaxed text-ink-soft">
+              We sent a 6-digit code to{" "}
+              <span className="font-semibold text-ink">{email}</span>. Enter it
+              below to claim your spot.
+            </p>
+
+            <div className="mt-6">
+              <Field
+                label="Verification code"
+                error={
+                  otp.length > 0 && otp.length < 6
+                    ? "Enter the full 6-digit code"
+                    : undefined
+                }
+                value={otp}
+                onChange={(v) => setOtp(v.replace(/\D/g, "").slice(0, 6))}
+                type="text"
+                inputMode="numeric"
+                placeholder="123456"
+                autoComplete="one-time-code"
+              />
+            </div>
+
+            {banner && (
+              <p
+                role="alert"
+                className="mt-5 rounded-md border-[1.5px] border-ink bg-green/20 px-3 py-2 font-mono text-[12px] text-ink"
+              >
+                {banner}
+              </p>
+            )}
+
+            <button
+              type="submit"
+              disabled={status === "submitting"}
+              className="btn mt-6 w-full disabled:opacity-60"
+            >
+              {status === "submitting" ? "Verifying…" : "Verify & secure my spot →"}
+            </button>
+
+            <div className="mt-4 flex items-center justify-between font-mono text-[11px] uppercase tracking-[0.1em]">
+              <button
+                type="button"
+                onClick={resendCode}
+                disabled={status === "submitting"}
+                className="text-ink-soft underline-offset-2 hover:underline disabled:opacity-60"
+              >
+                Resend code
+              </button>
+              <button
+                type="button"
+                onClick={backToDetails}
+                disabled={status === "submitting"}
+                className="text-faint underline-offset-2 hover:underline disabled:opacity-60"
+              >
+                Change email
+              </button>
+            </div>
+          </form>
         ) : (
           <form onSubmit={onSubmit} noValidate>
             {/* Intent toggle */}
@@ -338,6 +473,7 @@ function Field({
   type = "text",
   placeholder,
   autoComplete,
+  inputMode,
 }: {
   label: string;
   value: string;
@@ -346,6 +482,7 @@ function Field({
   type?: string;
   placeholder?: string;
   autoComplete?: string;
+  inputMode?: React.HTMLAttributes<HTMLInputElement>["inputMode"];
 }) {
   return (
     <label className="block">
@@ -357,6 +494,7 @@ function Field({
         value={value}
         placeholder={placeholder}
         autoComplete={autoComplete}
+        inputMode={inputMode}
         onChange={(e) => onChange(e.target.value)}
         aria-invalid={error ? true : undefined}
         className="mt-2 w-full border-b-[1.5px] border-ink bg-transparent py-2 text-[15px] text-ink placeholder:text-faint focus:border-green-ink focus:bg-green/10 focus:outline-none"

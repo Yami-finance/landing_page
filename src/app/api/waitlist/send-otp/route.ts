@@ -1,10 +1,14 @@
 import { NextResponse, type NextRequest } from "next/server";
-import { WaitlistInput } from "@/lib/waitlist/schema";
-import { addToWaitlist } from "@/lib/waitlist/store";
+import { z } from "zod";
 import { rateLimit } from "@/lib/ratelimit";
+import { otpEnabled, sendOtp } from "@/lib/waitlist/otp";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
+
+const Body = z.object({
+  email: z.string().trim().toLowerCase().email("Enter a valid email").max(120),
+});
 
 function clientIp(req: NextRequest): string {
   const fwd = req.headers.get("x-forwarded-for");
@@ -22,6 +26,11 @@ export async function POST(req: NextRequest) {
     );
   }
 
+  // No anon key configured — the join flow skips the OTP step entirely.
+  if (!otpEnabled()) {
+    return NextResponse.json({ otp: false });
+  }
+
   let body: unknown;
   try {
     body = await req.json();
@@ -29,23 +38,25 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "Invalid JSON" }, { status: 400 });
   }
 
-  const parsed = WaitlistInput.safeParse(body);
+  const parsed = Body.safeParse(body);
   if (!parsed.success) {
     return NextResponse.json(
-      { error: "Check your details.", fields: parsed.error.flatten().fieldErrors },
+      { error: "Enter a valid email." },
       { status: 422 }
     );
   }
 
-  try {
-    const ua = (req.headers.get("user-agent") ?? "").slice(0, 250);
-    const { position, already } = await addToWaitlist({ ...parsed.data, ua });
-    return NextResponse.json({ position, already });
-  } catch (err) {
-    console.error("waitlist insert failed", err);
+  const sent = await sendOtp(parsed.data.email);
+  if (sent.ok) return NextResponse.json({ otp: true });
+  if (sent.rateLimited) {
     return NextResponse.json(
-      { error: "Couldn't record that, try again." },
-      { status: 500 }
+      { error: "Too many codes. Wait a minute, then try again." },
+      { status: 429 }
     );
   }
+  console.error("otp send failed", sent.error);
+  return NextResponse.json(
+    { error: "Couldn't send the code. Check the email and try again." },
+    { status: 500 }
+  );
 }

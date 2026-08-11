@@ -1,0 +1,393 @@
+{
+  "metadata": {
+    "title": "Yami | P2P Lending Between Friends in Nigeria | Borrow. Lend. Build Trust.",
+    "titleTemplate": "%s | Yami",
+    "description": "You already lend money to people you trust. Yami makes it official, verified identities, a real agreement, and a trust score that grows every time you keep your word.",
+    "openGraph": {
+      "title": "Yami | P2P Lending Between Friends in Nigeria",
+      "description": "Verified identities, signed agreements, and a trust score for the lending young Nigerians already do between friends.",
+      "url": "https://yami.finance",
+      "siteName": "Yami",
+      "locale": "en_NG",
+      "type": "website"
+    }
+  },
+  "nav": {
+    "links": [
+      { "label": "How it works", "href": "/#how-it-works" },
+      { "label": "Trust Score", "href": "/#trust-score" },
+      { "label": "Where we are", "href": "/#where-we-are" },
+      { "label": "FAQ", "href": "/#faq" }
+    ],
+    "cta": "Join the waitlist",
+    "aria": {
+      "openMenu": "Open menu",
+      "closeMenu": "Close menu"
+    }
+  },
+  "hero": {
+    "heading": "Lending between people, on the record.",
+    "highlight": "on the record.",
+    "lead": "You've lent money to someone you trusted. Maybe they paid you back. Maybe they didn't. Either way, there was no agreement, no record, and nothing you could do about it. Yami fixes that, not by being a bank, but by making the lending you already do mean something.",
+    "subtitle": "The peer-to-peer lending platform for Nigerians who already lend to each other.",
+    "meta": [
+      { "label": "You lend. You borrow.", "value": "Between real people" },
+      { "label": "Not a loan app", "value": "We never touch your money" },
+      { "label": "First cohort", "value": "Communities, soon" }
+    ]
+  },
+  "problem": {
+    "folio": "01 · The Problem",
+    "heading": "Nigerians already lend to each other. There's just no infrastructure.",
+    "rows": [
+      {
+        "label": "Missing",
+        "title": "Trust data",
+        "detail": "You're lending blind. No way to know if the person asking has paid anyone back before. So you go with your gut and hope."
+      },
+      {
+        "label": "Missing",
+        "title": "Documentation",
+        "detail": "The agreement is a WhatsApp message. Which means it's not really an agreement at all."
+      },
+      {
+        "label": "Missing",
+        "title": "A payment trail",
+        "detail": "The transfer happened. The debt didn't. Money moved but nothing was recorded. If it goes wrong, good luck proving anything."
+      },
+      {
+        "label": "Missing",
+        "title": "Consequences",
+        "detail": "The person who flaked just finds another friend to ask. There's no record, no consequence, and no reason to change."
+      }
+    ]
+  },
+  "solution": {
+    "folio": "02 · The Solution",
+    "heading": "Yami doesn't lend you money.",
+    "headingHighlight": "We make lending between people work.",
+    "lead": "The money stays between you and whoever you're dealing with. What we add is everything that's been missing: proof of who you're dealing with, a real agreement, and a reputation you actually own.",
+    "rows": [
+      {
+        "label": "a.",
+        "title": "Trust Score",
+        "detail": "A score built on what you actually did. Every time you pay back what you owe, it counts. Show the world you're good for it."
+      },
+      {
+        "label": "b.",
+        "title": "Structured agreements",
+        "detail": "Both sides agree, both sides sign. No more 'I thought you said next month.' It's written down and it holds."
+      },
+      {
+        "label": "c.",
+        "title": "Verified people",
+        "detail": "You're not lending to a stranger. Everyone on Yami is verified. Real name, real face, real accountability."
+      }
+    ]
+  },
+  "centrepiece": {
+    "folio": "03 · The Centrepiece",
+    "heading": "A number that follows your good name.",
+    "scoreLabel": "Trust Score",
+    "factors": [
+      {
+        "label": "i.",
+        "title": "Repayment rate",
+        "detail": "Did you pay back what you agreed?"
+      },
+      {
+        "label": "ii.",
+        "title": "Repayment speed",
+        "detail": "Did you pay on time, or early?"
+      },
+      {
+        "label": "iii.",
+        "title": "Agreement completion",
+        "detail": "Do you finish what you start?"
+      }
+    ],
+    "portability": "Every bank has told you they don't have enough data on you. Yami builds that data from the ground up, from the real lending you already do. Pay people back consistently, and your score opens doors that were closed before.",
+    "simulatorLink": "See how it moves →"
+  },
+  "howItWorks": {
+    "folio": "04 · How it works",
+    "heading": "Simple. Structured. Secure.",
+    "stepLabelPattern": "Step {n} / 5",
+    "toggle": {
+      "borrow": "I want to borrow",
+      "lend": "I want to lend"
+    },
+    "steps": {
+      "borrow": [
+        {
+          "title": "Verify your identity",
+          "detail": "BVN and a photo ID, checked once through a licensed partner. Do it once and you're trusted everywhere on Yami."
+        },
+        {
+          "title": "Create a request",
+          "detail": "Say what you need in plain words. Yami turns it into a clear request with real terms."
+        },
+        {
+          "title": "Receive offers",
+          "detail": "Verified lenders make you offers. You see their trust score, their rate, and their terms before you decide."
+        },
+        {
+          "title": "Sign the agreement",
+          "detail": "Both of you sign. It's documented for good, and it protects you both."
+        },
+        {
+          "title": "Repay on time",
+          "detail": "Every repayment on time lifts your score. Your reputation grows with you."
+        }
+      ],
+      "lend": [
+        {
+          "title": "Verify your identity",
+          "detail": "Everyone clears the same bar. The people you lend to are verified, not anonymous."
+        },
+        {
+          "title": "Browse requests",
+          "detail": "See real borrowers with their trust score, what they need, and when they'll pay it back."
+        },
+        {
+          "title": "Make an offer",
+          "detail": "Set your own terms and agree them out in the open."
+        },
+        {
+          "title": "Sign the agreement",
+          "detail": "Every naira you lend is written down and enforceable."
+        },
+        {
+          "title": "Get repaid",
+          "detail": "Track it in real time. Every loan you see through builds your reputation too."
+        }
+      ]
+    }
+  },
+  "whereWeAre": {
+    "folio": "05 · Where we are",
+    "heading": "Almost. Not yet. Soon.",
+    "intro": "We're not live yet. When we are, you'll be the first to know.",
+    "entryLabelPattern": "Entry {id}",
+    "entries": [
+      {
+        "id": "001",
+        "title": "Yami is real",
+        "detail": "Built by Arcturian Limited and registered in Nigeria. The product is built, the company is registered. We're not raising money to build it later.",
+        "stamp": "done",
+        "stampLabel": "Done"
+      },
+      {
+        "id": "002",
+        "title": "The waitlist is open",
+        "detail": "This is where you come in. Get on the list and you're first in line when your community opens.",
+        "stamp": "now",
+        "stampLabel": "Now"
+      },
+      {
+        "id": "003",
+        "title": "First cohort",
+        "detail": "We're starting inside one community where your name already carries weight, then opening up, city by city.",
+        "stamp": "next",
+        "stampLabel": "Next"
+      },
+      {
+        "id": "004",
+        "title": "Launch",
+        "detail": "Launch is close. We're being deliberate about who we open to first, because trust starts in communities, not in mass rollouts.",
+        "stamp": "green",
+        "stampLabel": "Soon"
+      }
+    ]
+  },
+  "founderNote": {
+    "folio": "06 · Why we're building this",
+    "abegLine": "“Abeg, I'll pay you back next week.”",
+    "paragraphs": [
+      "We've all sent that message. We've all received it. And we've all had the experience of not knowing which version we were getting.",
+      "The frustrating part isn't the money. It's that the people who always pay back have nothing to show for it. No record, no reward, no way to prove they're different from the ones who don't.",
+      "We built Yami because that reputation deserves to exist. The product is built, the company is registered, and now we're letting the first people in."
+    ],
+    "nameNote": "Yami comes from Yoruba, “e ya mi”, meaning “borrow me.” It also means friend in pidgin. Both fit. The lending we're building is between people who know each other, not between strangers and algorithms.",
+    "signature": "Murewa, Timi & Olu, Founders of Yami"
+  },
+  "faq": {
+    "folio": "07 · FAQ",
+    "heading": "Questions, answered.",
+    "questionLabelPattern": "Q.0{n}",
+    "items": [
+      {
+        "q": "Is Yami a loan app or a P2P lending platform?",
+        "a": "Yami is a peer-to-peer lending platform, not a loan app. We don't lend money, hold your cash, or set rates. We give people the tools to lend to each other safely: verified identities, a real agreement, and a trust score. The money is always between you and another person."
+      },
+      {
+        "q": "Who can use Yami for lending in Nigeria?",
+        "a": "Any young Nigerian who already lends or borrows within their circle. Students, young professionals, anyone whose word is good. We're opening up community by community, starting where reputation already matters."
+      },
+      {
+        "q": "When is Yami launching in Nigeria?",
+        "a": "Soon. We're opening in one community first, then more, city by city. Join the waitlist and you'll be first to know when yours goes live."
+      },
+      {
+        "q": "Why join the Yami waitlist now?",
+        "a": "You get in before the people who'll ask you to refer them later. Early members are first when their city opens, and they start building their trust score before everyone else does."
+      },
+      {
+        "q": "Is it safe to use my BVN on Yami?",
+        "a": "Yes. Your BVN is only used to confirm you're really you, through a licensed partner. We don't keep it on our servers, and your details are encrypted."
+      },
+      {
+        "q": "What happens if someone doesn't repay a loan on Yami?",
+        "a": "Their trust score takes a real hit, which makes it harder for them to borrow again. The signed agreement is proof of the debt, and people who keep defaulting get flagged across the network."
+      },
+      {
+        "q": "How does Yami's trust score work?",
+        "a": "It's built from what you actually do: whether you pay back what you agreed, how quickly you pay, and whether you finish the agreements you sign. It starts the day you verify yourself and grows with every promise you keep."
+      }
+    ]
+  },
+  "lastEntry": {
+    "heading": "Your word is worth something.",
+    "headingHighlight": "Put it on the record.",
+    "cta": "Claim your spot →"
+  },
+  "footer": {
+    "tagline": "Lending between people, on the record.",
+    "legal": [
+      { "label": "Privacy", "href": "/legal/privacy" },
+      { "label": "Terms", "href": "/legal/terms" }
+    ],
+    "builtBy": "Built by Arcturian Limited · Lagos, Nigeria",
+    "disclaimer": "Yami is not a lender or deposit-taker.",
+    "copyright": "© 2026 Yami"
+  },
+  "waitlistPage": {
+    "title": "Get early access",
+    "description": "Claim your place in line for Yami, lending between people, on the record.",
+    "backLink": "← Back",
+    "heading": "Get early access.",
+    "footer": "Built by Arcturian Limited · Lagos, Nigeria"
+  },
+  "ticketForm": {
+    "header": {
+      "eyebrow": "Admit one · Early access",
+      "title": "Claim your spot"
+    },
+    "intents": ["borrow", "lend", "both"],
+    "amountLabels": {
+      "borrow": "Amount you'd borrow",
+      "lend": "Amount you'd lend to start",
+      "both": "Typical amount (either way)"
+    },
+    "amountRanges": [
+      { "value": "5-20k", "label": "₦5,000 – ₦20,000" },
+      { "value": "20-50k", "label": "₦20,000 – ₦50,000" },
+      { "value": "50-100k", "label": "₦50,000 – ₦100,000" },
+      { "value": "100k+", "label": "₦100,000+" }
+    ],
+    "fields": {
+      "name": "Full name",
+      "email": "Email",
+      "emailPlaceholder": "you@example.com",
+      "phone": "WhatsApp number",
+      "phonePlaceholder": "0803 000 0000",
+      "where": "School or city",
+      "wherePlaceholder": "e.g. Babcock, Lagos",
+      "amountSelect": "Select amount"
+    },
+    "buttons": {
+      "submit": "Secure my spot →",
+      "submitting": "Recording…"
+    },
+    "success": {
+      "stamp": "✓ Recorded",
+      "alreadyOnList": "You're already",
+      "onTheList": "You're on the list",
+      "inLine": "in line",
+      "message": "We'll message you on WhatsApp when your cohort opens. Yami works better when your people are on it, tell one friend.",
+      "share": "Share on WhatsApp →",
+      "shareText": "I just claimed my spot on Yami, lending between people, on the record. yami.finance"
+    },
+    "errors": {
+      "name": "Enter your name",
+      "emailRequired": "Enter your email",
+      "emailInvalid": "Enter a valid email",
+      "phoneRequired": "Enter your WhatsApp number",
+      "phoneInvalid": "Enter a valid Nigerian number",
+      "where": "Where are you?",
+      "amount": "Pick an amount range.",
+      "rateLimited": "Slow down a moment, try again shortly.",
+      "generic": "Couldn't record that, try again."
+    },
+    "disclaimer": "No BVN. No ID. No commitment. Just your place in line."
+  },
+  "scoreCard": {
+    "label": "Trust Score",
+    "tiers": ["New", "Building", "Reliable", "Trusted", "Elite"]
+  },
+  "seo": {
+    "_note": "Schema markup — paste this into a <script type='application/ld+json'> tag in your <head>",
+    "faqSchema": {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Is Yami a loan app or a P2P lending platform?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yami is a peer-to-peer lending platform, not a loan app. We don't lend money, hold your cash, or set rates. We give people the tools to lend to each other safely: verified identities, a real agreement, and a trust score. The money is always between you and another person."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Who can use Yami for lending in Nigeria?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Any young Nigerian who already lends or borrows within their circle. Students, young professionals, anyone whose word is good. We're opening up community by community, starting where reputation already matters."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "When is Yami launching in Nigeria?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Soon. We're opening in one community first, then more, city by city. Join the waitlist and you'll be first to know when yours goes live."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Why join the Yami waitlist now?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "You get in before the people who'll ask you to refer them later. Early members are first when their city opens, and they start building their trust score before everyone else does."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is it safe to use my BVN on Yami?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. Your BVN is only used to confirm you're really you, through a licensed partner. We don't keep it on our servers, and your details are encrypted."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What happens if someone doesn't repay a loan on Yami?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Their trust score takes a real hit, which makes it harder for them to borrow again. The signed agreement is proof of the debt, and people who keep defaulting get flagged across the network."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How does Yami's trust score work?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "It's built from what you actually do: whether you pay back what you agreed, how quickly you pay, and whether you finish the agreements you sign. It starts the day you verify yourself and grows with every promise you keep."
+          }
+        }
+      ]
+    }
+  }
+}

@@ -1,7 +1,7 @@
 import { Reveal } from "@/components/motion/Reveal";
 import { TicketForm } from "@/components/waitlist/TicketForm";
 import { HandFill } from "@/components/brand/HandFill";
-import { heroLead, heroMeta } from "@/content/landing";
+import { heroLead, heroSubtitle, heroMeta } from "@/content/landing";
 
 // § amendment — the hero (and the nav over it) inverts to the brand's own dark.
 // Two green hands reach in from opposite corners and converge on the Ticket:
@@ -35,6 +35,12 @@ export function Hero() {
           <Reveal delay={120}>
             <p className="mt-6 max-w-xl text-[18px] leading-relaxed text-forest-muted">
               {heroLead}
+            </p>
+          </Reveal>
+
+          <Reveal delay={150}>
+            <p className="mt-4 max-w-xl font-mono text-[13px] uppercase tracking-[0.08em] text-green">
+              {heroSubtitle}
             </p>
           </Reveal>
 

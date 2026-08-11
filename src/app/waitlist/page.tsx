@@ -6,7 +6,7 @@ import { TicketFormWithParams } from "@/components/waitlist/TicketFormWithParams
 export const metadata: Metadata = {
   title: "Get early access",
   description:
-    "Claim your place in line for Yami — lending between people, on the record.",
+    "Claim your place in line for Yami, lending between people, on the record.",
 };
 
 // §11.2 — the ticket, centered and larger, on plain ruled paper. Nothing else
