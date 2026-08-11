@@ -30,6 +30,14 @@ export function FaqSection() {
                 <p className="max-w-2xl text-[15.5px] leading-relaxed text-ink-soft">
                   {f.a}
                 </p>
+                {f.more && (
+                  <a
+                    href={f.more.href}
+                    className="mt-3 inline-block font-mono text-[13px] uppercase tracking-[0.12em] text-ink underline decoration-green decoration-2 underline-offset-4 hover:text-green-ink"
+                  >
+                    {f.more.label}
+                  </a>
+                )}
               </div>
             </details>
           ))}

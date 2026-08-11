@@ -196,7 +196,10 @@ export const founderNote = {
   signature: "Murewa, Timi & Olu, Founders of Yami",
 };
 
-export const faqs = [
+/** `more` renders an optional "read on" link under the answer. */
+type Faq = { q: string; a: string; more?: { label: string; href: string } };
+
+export const faqs: Faq[] = [
   {
     q: "Is Yami a loan app?",
     a: "No. Yami doesn't lend money, hold your cash, or set rates. We give people the tools to lend to each other safely: verified identities, a real agreement, and a trust score. The money is always between you and another person.",
@@ -224,6 +227,7 @@ export const faqs = [
   {
     q: "How does the trust score work?",
     a: "It's built from what you actually do: whether you pay back what you agreed, how quickly you pay, and whether you finish the agreements you sign. It starts the day you verify yourself and grows with every promise you keep.",
+    more: { label: "See how it moves →", href: "/trust-score#simulator" },
   },
 ];
 
