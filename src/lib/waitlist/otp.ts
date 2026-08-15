@@ -66,7 +66,7 @@ export async function sendOtp(email: string): Promise<OtpResult> {
       html: `<p>Your verification code for Yami is <strong>${code}</strong>.</p><p>It expires in 10 minutes.</p>`
     });
     return { ok: true };
-  } catch (err: any) {
+  } catch (err: unknown) {
     console.error("Failed to send email:", err);
     return { ok: false, error: "Failed to send email." };
   }
