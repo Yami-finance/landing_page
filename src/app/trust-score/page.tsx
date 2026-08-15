@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { Nav } from "@/components/layout/Nav";
 import { Footer } from "@/components/layout/Footer";
 
@@ -21,9 +22,9 @@ export default function TrustScorePage() {
           We are currently building the ultimate simulator to help you understand how
           your on-chain reputation translates into your Yami Trust Score.
         </p>
-        <a href="/" className="btn mt-10">
+        <Link href="/" className="btn mt-10">
           ← Back to home
-        </a>
+        </Link>
       </main>
       <Footer />
     </>
