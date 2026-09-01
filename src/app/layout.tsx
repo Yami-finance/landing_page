@@ -42,18 +42,18 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://yami.finance"),
   title: {
     default:
-      "Yami | P2P Lending Between Friends in Nigeria | Borrow. Lend. Build Trust.",
+      "Yami | Peer-to-Peer Lending for Nigerians | Borrow. Lend. Build Trust.",
     template: "%s | Yami",
   },
   description:
-    "You already lend money to people you trust. Yami makes it official, verified identities, a real agreement, and a trust score that grows every time you keep your word.",
+    "Banks say no. Loan apps harass you. Yami gives you access to fair, structured credit starting with your tuition. Borrow, pay back on time, and build a trust score you own.",
   applicationName: "Yami",
   alternates: { canonical: "https://yami.finance" },
   robots: { index: true, follow: true },
   openGraph: {
-    title: "Yami | P2P Lending Between Friends in Nigeria",
+    title: "Yami | Peer-to-Peer Lending for Nigerians",
     description:
-      "Verified identities, signed agreements, and a trust score for the lending young Nigerians already do between friends.",
+      "Accessible credit, signed agreements, and a trust score for the lending Nigerians already do every day.",
     url: "https://yami.finance",
     siteName: "Yami",
     locale: "en_NG",
@@ -61,9 +61,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary",
-    title: "Yami | P2P Lending Between Friends in Nigeria",
+    title: "Yami | Peer-to-Peer Lending for Nigerians",
     description:
-      "Verified identities, signed agreements, and a trust score for the lending young Nigerians already do between friends.",
+      "Accessible credit, signed agreements, and a trust score for the lending Nigerians already do every day.",
   },
 };
 

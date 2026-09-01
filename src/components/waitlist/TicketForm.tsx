@@ -11,13 +11,13 @@ import { prefersReducedMotion } from "@/components/motion/useInView";
 import { track } from "@/lib/analytics";
 
 const AMOUNT_LABEL: Record<Intent, string> = {
-  borrow: "Amount you'd borrow",
-  lend: "Amount you'd lend to start",
+  borrow: "Amount you need for tuition",
+  lend: "Amount you would lend to start",
   both: "Typical amount (either way)",
 };
 
 const SHARE_TEXT =
-  "I just claimed my spot on Yami, lending between people, on the record. yami.finance";
+  "I just claimed my spot on Yami, fair and accessible credit on the record. yami.finance";
 
 // Brand-coloured confetti burst on a successful join. Lazy-loaded so the library
 // never touches the initial bundle, and skipped entirely under reduced motion.
@@ -223,7 +223,7 @@ export function TicketForm({
       nextErrors.email = "Enter a valid email";
     if (!phone.trim()) nextErrors.phone = "Enter your WhatsApp number";
     else if (!normalizePhone(phone)) nextErrors.phone = "Enter a valid Nigerian number";
-    if (where.trim().length < 2) nextErrors.where = "Where are you?";
+    if (where.trim().length < 2) nextErrors.where = "Where is your university?";
     setErrors(nextErrors);
     if (Object.keys(nextErrors).length > 0 || !amount) {
       if (!amount) setBanner("Pick an amount range.");
@@ -282,8 +282,8 @@ export function TicketForm({
               </span>
             </p>
             <p className="mt-4 text-[15px] leading-relaxed text-ink-soft">
-              We&apos;ll message you on WhatsApp when your cohort opens. Yami
-              works better when your people are on it, tell your friend to tell their friends.
+              We&apos;ll message you on WhatsApp when your campus opens. Yami
+              works better when your network is on it, share it with them.
             </p>
             <a
               href={`https://wa.me/?text=${encodeURIComponent(SHARE_TEXT)}`}
@@ -431,11 +431,11 @@ export function TicketForm({
               </label>
 
               <Field
-                label="School or city"
+                label="University name"
                 error={errors.where}
                 value={where}
                 onChange={setWhere}
-                placeholder="e.g. Babcock, Lagos"
+                placeholder="e.g. UNILAG, Babcock"
               />
             </div>
 

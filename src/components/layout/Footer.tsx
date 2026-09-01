@@ -33,7 +33,7 @@ export function Footer() {
         <div className="mt-12 flex flex-col gap-3 border-t border-[rgba(244,242,234,0.14)] pt-6 font-mono text-[11.5px] uppercase tracking-[0.14em] text-forest-muted md:flex-row md:items-center md:justify-between">
           <p>Built by Arcturian Limited · Lagos, Nigeria</p>
           <p className="normal-case tracking-normal">
-            Yami is not a lender or deposit-taker.
+            Yami is not a balance-sheet lender or deposit-taker.
           </p>
           <p>© 2026 Yami</p>
         </div>

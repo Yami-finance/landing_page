@@ -1,18 +1,15 @@
-// Approved copy — source of truth. No fabricated traction (§1.1); no mention of
-// the backend, staging, or internal readiness anywhere. Launch status is "Soon"
-// with a wink. Written to read like a person, not a pitch deck.
-// Mirrors src/content/site-copy.json (the reference bundle for non-engineers).
+// Approved copy — source of truth. Mirrors src/content/site-copy.json.
 
 export const heroLead =
-  "You've lent money to someone you trusted. Maybe they paid you back. Maybe they didn't. Either way, there was no agreement, no record, and nothing you could do about it. Yami fixes that, not by being a bank, but by making the lending you already do mean something.";
+  "Banks demand collateral you do not have. Loan apps charge predatory rates. Yami gives everyday Nigerians access to fair, structured financing. We are starting with educational Buy Now, Pay Later to give you instant school clearance while you pay back in manageable installments.";
 
 export const heroSubtitle =
-  "The peer-to-peer lending platform for Nigerians who already lend to each other.";
+  "The P2P lending platform for Nigerians, rolling out our Educational BNPL pilot first.";
 
 export const heroMeta = [
-  { k: "You lend. You borrow.", v: "Between real people" },
-  { k: "Not a loan app", v: "We never touch your money" },
-  { k: "First cohort", v: "Communities, soon" },
+  { k: "Fair financing", v: "No predatory rates" },
+  { k: "Instant clearance", v: "Funds go direct to schools" },
+  { k: "First phase", v: "Educational BNPL" },
 ];
 
 export const ledgerStrip = [
@@ -34,55 +31,55 @@ export const ledgerStrip = [
 
 export const problems = [
   {
-    label: "Missing",
-    title: "Trust data",
+    label: "Barrier",
+    title: "Banks say no",
     detail:
-      "You're lending blind. No way to know if the person asking has paid anyone back before. So you go with your gut and hope.",
+      "Traditional banks require heavy collateral, strict salary accounts, and weeks of processing. If you do not fit their exact mold, you get nothing.",
   },
   {
-    label: "Missing",
-    title: "Documentation",
+    label: "Barrier",
+    title: "Predatory loan apps",
     detail:
-      "The agreement is a WhatsApp message. Which means it's not really an agreement at all.",
+      "The alternatives are loan apps that charge outrageous interest rates and resort to harassing your phone contacts if you are a day late.",
   },
   {
-    label: "Missing",
-    title: "A payment trail",
+    label: "Barrier",
+    title: "Awkward favors",
     detail:
-      "The transfer happened. The debt didn't. Money moved but nothing was recorded. If it goes wrong, good luck proving anything.",
+      "You are forced to rely on informal goodwill from family or sponsors for heavy tuition fees. It is stressful, unreliable, and causes delays at the bursary.",
   },
   {
-    label: "Missing",
-    title: "Consequences",
+    label: "Barrier",
+    title: "Zero credit history",
     detail:
-      "The person who flaked just finds another friend to ask. There's no record, no consequence, and no reason to change.",
+      "Even when you borrow from friends and pay them back on time, it never counts. You have no way to prove your reliability to the financial system.",
   },
 ];
 
-export const solutionHeading = "Yami doesn't lend you money.";
-export const solutionHeadingHighlight = "We make lending between people work.";
+export const solutionHeading = "Dignified financing with";
+export const solutionHeadingHighlight = "instant academic clearance.";
 
 export const solutionLead =
-  "The money stays between you and whoever you're dealing with. What we add is everything that's been missing: proof of who you're dealing with, a real agreement, and a reputation you actually own.";
+  "Yami matches you with verified peers and cooperatives willing to fund your tuition. To keep rates low and eliminate risk, we route the money directly to your university so you can focus on your studies.";
 
 export const pillars = [
   {
     label: "a.",
-    title: "Trust Score",
+    title: "Instant Clearance",
     detail:
-      "A score built on what you actually did. Every time you pay back what you owe, it counts. Show the world you're good for it.",
+      "The moment your loan is funded, we route the principal directly to the school bursary. You get cleared for classes and exams immediately.",
   },
   {
     label: "b.",
-    title: "Structured agreements",
+    title: "Manageable Installments",
     detail:
-      "Both sides agree, both sides sign. No more 'I thought you said next month.' It's written down and it holds.",
+      "We break heavy tuition into four simple monthly payments. No more panic trying to raise a massive lump sum at the start of the semester.",
   },
   {
     label: "c.",
-    title: "Verified people",
+    title: "Build Your Reputation",
     detail:
-      "You're not lending to a stranger. Everyone on Yami is verified. Real name, real face, real accountability.",
+      "Every on-time monthly payment builds your Yami Trust Score. Prove you are reliable and unlock access to larger credit limits in the future.",
   },
 ];
 
@@ -107,32 +104,33 @@ export const factors = [
 ];
 
 export const portability =
-  "Every bank has told you they don't have enough data on you. Yami builds that data from the ground up, from the real lending you already do. Pay people back consistently, and your score opens doors that were closed before.";
+  "Every bank has told you they do not have enough data on you. Yami builds that data from the ground up based on the payments you actually make. Pay your installments consistently, and your score opens doors that were closed before.";
 
 export const borrowSteps = [
   {
     title: "Verify your identity",
     detail:
-      "BVN and a photo ID, checked once through a licensed partner. Do it once and you're trusted everywhere on Yami.",
+      "BVN and a photo ID, checked once through a licensed partner. Do it once and you are trusted everywhere on Yami.",
   },
   {
-    title: "Create a request",
+    title: "Submit your invoice",
     detail:
-      "Say what you need in plain words. Yami turns it into a clear request with real terms.",
+      "Select your university and enter your tuition amount. Yami creates a clear request with transparent 4-month repayment terms.",
   },
   {
-    title: "Receive offers",
+    title: "Get funded",
     detail:
-      "Verified lenders make you offers. You see their trust score, their rate, and their terms before you decide.",
+      "Verified lenders fund your request. You see their terms clearly before you accept. No hidden fees or predatory traps.",
   },
   {
-    title: "Sign the agreement",
-    detail: "Both of you sign. It's documented for good, and it protects you both.",
-  },
-  {
-    title: "Repay on time",
+    title: "Instant school payment",
     detail:
-      "Every repayment on time lifts your score. Your reputation grows with you.",
+      "Once you sign the agreement, we send the money straight to your university bursary. You are cleared for the semester.",
+  },
+  {
+    title: "Repay and grow",
+    detail:
+      "Every automated repayment lifts your Trust Score. Your financial reputation grows with you.",
   },
 ];
 
@@ -145,98 +143,91 @@ export const lendSteps = [
   {
     title: "Browse requests",
     detail:
-      "See real borrowers with their trust score, what they need, and when they'll pay it back.",
+      "See real borrowers with their trust score, what they need, and when they will pay it back.",
   },
   {
     title: "Make an offer",
     detail: "Set your own terms and agree them out in the open.",
   },
   {
-    title: "Sign the agreement",
-    detail: "Every naira you lend is written down and enforceable.",
+    title: "Secure disbursement",
+    detail:
+      "Your funds never touch the borrower's personal account. They go directly to the verified university.",
   },
   {
     title: "Get repaid",
     detail:
-      "Track it in real time. Every loan you see through builds your reputation too.",
+      "Track it in real time. Earn a fixed yield while helping someone achieve their educational goals.",
   },
 ];
 
 export const statusEntries = [
   {
     id: "001",
-    title: "Yami is real",
+    title: "Phase 1: Tuition Financing",
     detail:
-      "Built by Arcturian Limited and registered in Nigeria. The product is built, the company is registered. We're not raising money to build it later.",
-    stamp: "done" as const,
-    stampLabel: "Done",
+      "Our first cohort focuses exclusively on educational BNPL. Students get tuition paid directly to their university, breaking the barrier to their education.",
+    stamp: "now" as const,
+    stampLabel: "Pilot",
   },
   {
     id: "002",
     title: "The waitlist is open",
     detail:
-      "This is where you come in. Get on the list and you're first in line when your community opens.",
+      "Get on the list to be first in line when we activate our initial university partnerships.",
     stamp: "now" as const,
     stampLabel: "Now",
   },
   {
     id: "003",
-    title: "First cohort",
+    title: "Phase 2: Full P2P",
     detail:
-      "We're starting inside one community where your name already carries weight, then opening up, city by city.",
+      "Once the trust infrastructure is proven on campus, we will open the marketplace to all structured personal lending needs across Nigeria.",
     stamp: "next" as const,
     stampLabel: "Next",
-  },
-  {
-    id: "004",
-    title: "Launch",
-    detail:
-      "Launch is close. We're being deliberate about who we open to first, because trust starts in communities, not in mass rollouts.",
-    stamp: "green" as const,
-    stampLabel: "Soon",
   },
 ];
 
 export const founderNote = {
-  abegLine: "“Abeg, I'll pay you back next week.”",
+  abegLine: "\u201CAbeg, I\u2019ll pay you back next week.\u201D",
   paras: [
-    "We've all sent that message. We've all received it. And we've all had the experience of not knowing which version we were getting.",
-    "The frustrating part isn't the money. It's that the people who always pay back have nothing to show for it. No record, no reward, no way to prove they're different from the ones who don't.",
-    "We built Yami because that reputation deserves to exist. The product is built, the company is registered, and now we're letting the first people in.",
+    "We have all sent that message. We have all received it. And we all know the anxiety that comes with trying to raise money for school fees at the last minute.",
+    "The most frustrating part is not just the lack of funds. It is that honest people who always pay back have no way to prove it to the formal system. You should not have to face predatory rates or awkward favors just to stay in school.",
+    "We built Yami because that reputation deserves to exist. We are giving everyday Nigerians the tools to access dignified credit, starting with the education that builds their future.",
   ],
   nameNote:
-    "Yami comes from Yoruba, “e ya mi”, meaning “borrow me.” It also means friend in pidgin. Both fit. The lending we're building is between people who know each other, not between strangers and algorithms.",
+    "Yami comes from Yoruba, \u201Ce ya mi\u201D, meaning \u201Cborrow me.\u201D It also means friend in pidgin. Both fit. The lending we are building is between real people and communities, not between faceless institutions and algorithms.",
   signature: "Murewa, Timi & Olu, Founders of Yami",
 };
 
 export const faqs = [
   {
-    q: "Is Yami a loan app or a P2P lending platform?",
-    a: "Yami is a peer-to-peer lending platform, not a loan app. We don't lend money, hold your cash, or set rates. We give people the tools to lend to each other safely: verified identities, a real agreement, and a trust score. The money is always between you and another person.",
+    q: "Why is Yami starting with Educational BNPL?",
+    a: "School fees are one of the heaviest recurring financial burdens in Nigeria. By starting with tuition and routing funds directly to universities, we provide students with instant clearance while completely eliminating the risk of capital flight for our lenders.",
+  },
+  {
+    q: "Is Yami a predatory loan app?",
+    a: "Absolutely not. We do not charge predatory interest rates, and we will never harass your contacts. Yami is a structured peer-to-peer marketplace designed to help you build a positive financial reputation over time.",
+  },
+  {
+    q: "Do I get the cash in my bank account?",
+    a: "No. To protect both you and the lender, the approved tuition amount is sent directly to your university's bursary account via API. This guarantees your fees are paid instantly and securely.",
   },
   {
     q: "Who can use Yami for lending in Nigeria?",
-    a: "Any young Nigerian who already lends or borrows within their circle. Students, young professionals, anyone whose word is good. We're opening up community by community, starting where reputation already matters.",
+    a: "Any young Nigerian who wants to build their credit profile or earn a yield on their savings. We are opening up community by community, starting where reputation already matters.",
   },
   {
     q: "When is Yami launching in Nigeria?",
-    a: "Soon. We're opening in one community first, then more, city by city. Join the waitlist and you'll be first to know when yours goes live.",
-  },
-  {
-    q: "Why join the Yami waitlist now?",
-    a: "You get in before the people who'll ask you to refer them later. Early members are first when their city opens, and they start building their trust score before everyone else does.",
+    a: "Soon. We are opening in one university community first, then expanding. Join the waitlist and you will be first to know when your campus goes live.",
   },
   {
     q: "Is it safe to use my BVN on Yami?",
-    a: "Yes. Your BVN is only used to confirm you're really you, through a licensed partner. We don't keep it on our servers, and your details are encrypted.",
-  },
-  {
-    q: "What happens if someone doesn't repay a loan on Yami?",
-    a: "Their trust score takes a real hit, which makes it harder for them to borrow again. The signed agreement is proof of the debt, and people who keep defaulting get flagged across the network.",
+    a: "Yes. Your BVN is only used to confirm you are really you, through a licensed partner. We do not keep it on our servers, and your details are strictly encrypted.",
   },
   {
     q: "How does Yami's trust score work?",
-    a: "It's built from what you actually do: whether you pay back what you agreed, how quickly you pay, and whether you finish the agreements you sign. It starts the day you verify yourself and grows with every promise you keep.",
+    a: "It is built from what you actually do: whether you pay your monthly installments, how quickly you pay, and whether you finish the agreements you sign. It grows with every promise you keep.",
   },
 ];
 

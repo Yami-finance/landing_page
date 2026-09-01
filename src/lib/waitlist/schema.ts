@@ -6,10 +6,10 @@ export type Intent = (typeof INTENTS)[number];
 // Canonical amount-range enum + labels + midpoints (§11.3). Midpoints power the
 // demand/supply-volume query Murewa needs day one.
 export const AMOUNT_RANGES = [
-  { value: "5-20k", label: "₦5,000 – ₦20,000", mid: 12500 },
-  { value: "20-50k", label: "₦20,000 – ₦50,000", mid: 35000 },
-  { value: "50-100k", label: "₦50,000 – ₦100,000", mid: 75000 },
-  { value: "100k+", label: "₦100,000+", mid: 150000 },
+  { value: "50-150k", label: "₦50,000 – ₦150,000", mid: 100000 },
+  { value: "150-400k", label: "₦150,000 – ₦400,000", mid: 275000 },
+  { value: "400-1m", label: "₦400,000 – ₦1,000,000", mid: 700000 },
+  { value: "1m+", label: "₦1,000,000+", mid: 1500000 },
 ] as const;
 
 export const AMOUNT_RANGE_VALUES = AMOUNT_RANGES.map((r) => r.value) as [

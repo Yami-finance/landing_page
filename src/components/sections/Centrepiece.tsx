@@ -44,12 +44,7 @@ export function Centrepiece() {
               <p className="mt-7 max-w-xl text-[15.5px] leading-relaxed text-ink-soft">
                 {portability}
               </p>
-              <a
-                href="/trust-score#simulator"
-                className="mt-5 inline-block font-mono text-[13px] uppercase tracking-[0.12em] text-ink underline decoration-green decoration-2 underline-offset-4 hover:text-green-ink"
-              >
-                See how it moves →
-              </a>
+
             </div>
           </Reveal>
         </div>

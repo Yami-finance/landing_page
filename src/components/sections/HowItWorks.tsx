@@ -32,7 +32,7 @@ export function HowItWorks() {
                     : "text-ink-soft hover:text-ink"
                 }`}
               >
-                {m === "borrow" ? "I want to borrow" : "I want to lend"}
+                {m === "borrow" ? "I need financing" : "I want to lend"}
               </button>
             ))}
           </div>

@@ -11,13 +11,13 @@ export function WhereWeAre() {
     <section id="where-we-are" className="scroll-mt-20 border-t border-ink">
       <div className="mx-auto max-w-6xl px-5 py-20 lg:px-8 lg:py-28">
         <SectionHead folio="05 · Where we are">
-          Almost. Not yet. Soon.
+          Phase One: Educational BNPL.
         </SectionHead>
 
         <Reveal className="section-head mt-6">
           <span className="hidden md:block" />
           <p className="max-w-2xl text-[18px] leading-relaxed text-ink-soft">
-            We&apos;re not live yet. When we are, you&apos;ll be the first to know.
+            We are rolling out in stages to ensure our infrastructure works perfectly. When your campus opens, you will be the first to know.
           </p>
         </Reveal>
 

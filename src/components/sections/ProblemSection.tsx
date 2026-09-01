@@ -7,8 +7,7 @@ export function ProblemSection() {
     <section id="problem" className="border-t border-ink">
       <div className="mx-auto max-w-6xl px-5 py-20 lg:px-8 lg:py-28">
         <SectionHead folio="01 · The Problem">
-          Nigerians already lend to each other. There&apos;s just no
-          infrastructure.
+          Good people are locked out of the credit system.
         </SectionHead>
 
         <div className="mt-12 border-t border-ink">

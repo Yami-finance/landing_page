@@ -25,9 +25,9 @@ export function Hero() {
         <div>
           <Reveal delay={60}>
             <h1 className="mt-6 text-[clamp(44px,5.8vw,80px)] font-extrabold leading-[1.15] text-paper">
-              Lending between people,{" "}
+              Accessible credit,{" "}
               <span className="box-decoration-clone bg-green px-2.5 py-1 text-ink">
-                on the record.
+                starting with your tuition.
               </span>
             </h1>
           </Reveal>
