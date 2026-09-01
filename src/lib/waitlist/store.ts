@@ -70,6 +70,24 @@ async function insertWaitlist(
 async function addSupabase(entry: WaitlistEntry): Promise<AddResult> {
   const supabase = await supabaseClient();
 
+  // Deduplication: check if either phone or email is already registered
+  const { data: existing } = await supabase
+    .from("waitlist")
+    .select("created_at, email, phone")
+    .or(`email.eq.${entry.email},phone.eq.${entry.phone}`)
+    .order("created_at", { ascending: true })
+    .limit(1)
+    .maybeSingle();
+
+  if (existing) {
+    const { count } = await supabase
+      .from("waitlist")
+      .select("*", { count: "exact", head: true })
+      .lte("created_at", existing.created_at);
+
+    return { position: count ?? 1, already: true };
+  }
+
   const { data: inserted, error } = await insertWaitlist(supabase, {
     name: entry.name,
     email: entry.email,
@@ -82,7 +100,7 @@ async function addSupabase(entry: WaitlistEntry): Promise<AddResult> {
     email_verified: entry.email_verified ?? false,
   });
 
-  // 23505 = unique_violation on phone → already on the list.
+  // 23505 = unique_violation on phone or email → already on the list.
   if (error && error.code !== "23505") {
     throw new Error(`supabase insert: ${error.message}`);
   }
@@ -94,17 +112,19 @@ async function addSupabase(entry: WaitlistEntry): Promise<AddResult> {
     return { position: count ?? 0, already: false };
   }
 
-  // Duplicate phone — return the existing place in line (rows at or before it).
-  const { data: existing } = await supabase
+  // Fallback for race condition: fetch existing row by phone or email
+  const { data: fallbackExisting } = await supabase
     .from("waitlist")
     .select("created_at")
-    .eq("phone", entry.phone)
+    .or(`email.eq.${entry.email},phone.eq.${entry.phone}`)
+    .order("created_at", { ascending: true })
+    .limit(1)
     .maybeSingle();
 
   const { count } = await supabase
     .from("waitlist")
     .select("*", { count: "exact", head: true })
-    .lte("created_at", existing?.created_at ?? new Date().toISOString());
+    .lte("created_at", fallbackExisting?.created_at ?? new Date().toISOString());
 
   return { position: count ?? 0, already: true };
 }
@@ -148,6 +168,20 @@ async function ensureSchema() {
 async function addNeon(entry: WaitlistEntry): Promise<AddResult> {
   await ensureSchema();
   const sql = await neonSql();
+
+  const existing = await sql`
+    SELECT created_at FROM waitlist
+    WHERE phone = ${entry.phone} OR email = ${entry.email}
+    ORDER BY created_at ASC
+    LIMIT 1`;
+
+  if (existing.length > 0) {
+    const pos = await sql`
+      SELECT COUNT(*)::int AS c FROM waitlist
+      WHERE created_at <= ${existing[0].created_at}`;
+    return { position: pos[0].c as number, already: true };
+  }
+
   const inserted = await sql`
     INSERT INTO waitlist (name, email, phone, intent, amount_range, where_at, source, ua, email_verified)
     VALUES (${entry.name}, ${entry.email}, ${entry.phone}, ${entry.intent}, ${entry.amount_range},
@@ -160,10 +194,10 @@ async function addNeon(entry: WaitlistEntry): Promise<AddResult> {
     return { position: total[0].c as number, already: false };
   }
 
-  // Duplicate phone — return the existing place in line.
+  // Duplicate phone / race condition — return the existing place in line.
   const pos = await sql`
     SELECT COUNT(*)::int AS c FROM waitlist
-    WHERE created_at <= (SELECT created_at FROM waitlist WHERE phone = ${entry.phone})`;
+    WHERE created_at <= (SELECT created_at FROM waitlist WHERE phone = ${entry.phone} OR email = ${entry.email} ORDER BY created_at ASC LIMIT 1)`;
   return { position: pos[0].c as number, already: true };
 }
 
@@ -189,7 +223,11 @@ async function readFile(): Promise<FileRow[]> {
 async function addFile(entry: WaitlistEntry): Promise<AddResult> {
   const run = writeChain.then(async () => {
     const rows = await readFile();
-    const existing = rows.findIndex((r) => r.phone === entry.phone);
+    const existing = rows.findIndex(
+      (r) =>
+        r.phone === entry.phone ||
+        r.email.trim().toLowerCase() === entry.email.trim().toLowerCase()
+    );
     if (existing >= 0) return { position: existing + 1, already: true };
 
     rows.push({ ...entry, created_at: new Date().toISOString() });
