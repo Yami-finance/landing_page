@@ -181,7 +181,7 @@ export default function FlyerPage() {
                 Claim your spot in line.
               </h3>
               <p className="text-xs sm:text-sm text-[#AEBFB2] mt-1.5 max-w-sm leading-relaxed">
-                Starting with our campus partners (UNILAG, Babcock, and more). Scan or visit to secure early access.
+                Starting with our campus partners (Partner Universities). Scan or visit to secure early access.
               </p>
               <div className="mt-3 inline-flex items-center gap-2">
                 <span className="font-mono text-base sm:text-lg font-bold text-[#DFFF3B] tracking-wider bg-[rgba(223,255,59,0.12)] px-3 py-1 rounded border border-[rgba(223,255,59,0.3)]">

@@ -12,7 +12,7 @@ export function SectionHead({
   dark = false,
 }: {
   folio: string;
-  children: ReactNode;
+  children?: ReactNode;
   className?: string;
   dark?: boolean;
 }) {
@@ -22,13 +22,15 @@ export function SectionHead({
       className={["section-head", className].filter(Boolean).join(" ")}
     >
       <p className={`folio ${dark ? "text-forest-muted" : ""} pt-2`}>{folio}</p>
-      <h2
-        className={`text-balance text-[clamp(32px,4.4vw,54px)] font-extrabold leading-[1.04] ${
-          dark ? "text-forest-text" : "text-ink"
-        }`}
-      >
-        {children}
-      </h2>
+      {children && (
+        <h2
+          className={`text-balance text-[clamp(32px,4.4vw,54px)] font-extrabold leading-[1.04] ${
+            dark ? "text-forest-text" : "text-ink"
+          }`}
+        >
+          {children}
+        </h2>
+      )}
     </Reveal>
   );
 }

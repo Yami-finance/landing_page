@@ -161,8 +161,8 @@ export function TicketForm({
       track("waitlist_submitted", {
         intent,
         amount_range: amount,
-        where: where.trim().toLowerCase().includes("babcock")
-          ? "babcock"
+        where: where.trim().toLowerCase().includes("university")
+          ? "university"
           : "other",
       });
     } catch {
@@ -435,7 +435,7 @@ export function TicketForm({
                 error={errors.where}
                 value={where}
                 onChange={setWhere}
-                placeholder="e.g. UNILAG, Babcock"
+                placeholder="e.g. UNILAG, Demo University"
               />
             </div>
 
