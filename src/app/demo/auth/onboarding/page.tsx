@@ -1,11 +1,11 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { Logo } from '@/components/brand/Logo';
 import { useDemo } from '@/lib/demo/store';
 
-export default function OnboardingFlow() {
+function OnboardingContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const { dispatch, isHydrated } = useDemo();
@@ -196,5 +196,18 @@ export default function OnboardingFlow() {
 
       </div>
     </div>
+  );
+}
+
+
+export default function OnboardingFlow() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen bg-paper flex flex-col items-center justify-center p-4">
+        <div className="w-12 h-12 border-4 border-ink/20 border-t-green rounded-full animate-spin" />
+      </div>
+    }>
+      <OnboardingContent />
+    </Suspense>
   );
 }
