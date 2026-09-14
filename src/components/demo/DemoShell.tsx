@@ -42,7 +42,7 @@ export function DemoShell({ children }: { children: React.ReactNode }) {
       {/* Sidebar */}
       <nav
         className={`
-          fixed md:sticky top-0 left-0 h-screen w-full md:w-64 border-r border-ink/10 bg-paper z-30
+          fixed md:sticky top-[68px] md:top-0 left-0 h-[calc(100vh-68px)] md:h-screen w-full md:w-64 border-r border-ink/10 bg-paper z-30
           flex flex-col transform transition-transform duration-300 ease-thump
           ${mobileMenuOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'}
         `}

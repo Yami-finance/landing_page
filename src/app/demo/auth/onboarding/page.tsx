@@ -70,7 +70,7 @@ function OnboardingContent() {
                   <p className="text-sm text-ink-soft">We need some basic information to get started.</p>
                 </div>
                 
-                <div className="grid grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div className="flex flex-col gap-2">
                     <label className="font-mono text-xs uppercase tracking-widest text-ink">First Name</label>
                     <input type="text" className="border border-ink p-3 bg-paper font-mono text-sm focus:outline-none focus:ring-2 focus:ring-green" />

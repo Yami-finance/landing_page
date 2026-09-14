@@ -15,7 +15,7 @@ export function ActorSwitcher() {
 
 
   return (
-    <div className="fixed top-4 right-4 z-50 font-mono text-xs flex items-center gap-2">
+    <div className="fixed bottom-4 left-4 md:top-4 md:right-4 md:bottom-auto md:left-auto z-50 font-mono text-xs flex flex-col md:flex-row items-start md:items-center gap-2">
       <span className="text-ink-soft bg-paper/80 px-2 py-1 backdrop-blur-sm rounded-sm">ACTOR:</span>
       <select 
         className="bg-paper border border-ink shadow-ticket px-3 py-1.5 focus:outline-none focus:ring-2 focus:ring-green cursor-pointer"
